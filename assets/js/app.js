@@ -56,6 +56,7 @@ const iniciarApp = () => {
         herramientas: EXAMEN.herramientas,
         pasos: EXAMEN.pasos,
         criterios: EXAMEN.criterios,
+        documentacion: EXAMEN.documentacion,
         motivacion: EXAMEN.motivacion,
         estadisticas: [
           { etiqueta: 'Alumnos', valor: EXAMEN.alumnos.length },

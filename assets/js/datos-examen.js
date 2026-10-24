@@ -4,9 +4,9 @@
  */
 const EXAMEN = Object.freeze({
   herramientas: {
-    resumen: 'Vue 3 y Tailwind CSS, cargados solo por CDN.',
+    resumen: 'Vue 3 y Tailwind CSS, pegando una línea de cada uno (CDN).',
     detalle:
-      'Nada de npm, Vite ni procesos de build: tu solución debe funcionar abriendo el archivo HTML en el navegador.',
+      'No hay que instalar nada: tu página debe funcionar abriendo el archivo con doble clic. Los datos de tu API ya vienen listos al final de tu archivo, así que tú te encargas del diseño y de la interacción.',
   },
 
   pasos: [
@@ -17,42 +17,49 @@ const EXAMEN = Object.freeze({
     {
       titulo: 'Lee tu panel',
       descripcion:
-        'Arriba de tu página está el panel con tu API, tu temática visual y tu misión interactiva.',
+        'Arriba de tu página hay un panel que te explica, paso a paso, qué estilo usar, qué datos mostrar y qué interacción construir.',
     },
     {
-      titulo: 'Refactoriza con IA',
+      titulo: 'Diseña con IA',
       descripcion:
-        'Reescribe la página con Vue 3 y Tailwind CSS por CDN. Usa la IA como copiloto y apóyate en tu tip de prompting.',
+        'Rehaz la página con Vue y Tailwind. Tu panel trae un esqueleto para copiar y un mensaje listo para pegarle a la IA.',
     },
     {
       titulo: 'Escapa',
       descripcion:
-        'Cuando tu página consuma la API, luzca la temática y la misión funcione, saliste del escape room.',
+        'Cuando tu página muestre los datos reales, luzca el estilo pedido y la interacción funcione, saliste del escape room.',
     },
   ],
 
   criterios: [
     {
-      titulo: 'Código limpio',
+      titulo: 'Código ordenado',
       descripcion:
-        'Nada de tablas para maquetar, etiquetas obsoletas, estilos en línea ni onclick escritos en el HTML.',
+        'Sin tablas para acomodar el diseño, sin etiquetas viejas como <font> o <center> y sin estilos escritos dentro de cada etiqueta.',
     },
     {
-      titulo: 'Vue 3 + Tailwind por CDN',
-      descripcion: 'La interactividad usa Vue 3 y los estilos usan Tailwind CSS, ambos cargados por CDN.',
+      titulo: 'Vue y Tailwind',
+      descripcion: 'Los estilos se hacen con clases de Tailwind y la interacción con Vue, ambos cargados con su línea de CDN.',
     },
     {
-      titulo: 'API real',
-      descripcion: 'Los datos vienen de la API asignada, no escritos a mano.',
+      titulo: 'Datos reales',
+      descripcion: 'La página muestra los datos que llegan de la API (la conexión ya viene en tu archivo), no texto inventado.',
     },
     {
-      titulo: 'Temática visual',
-      descripcion: 'La página respeta la estética exigida en tu panel.',
+      titulo: 'Estilo visual',
+      descripcion: 'A simple vista, la página se ve como el estilo que te tocó.',
     },
     {
-      titulo: 'Misión interactiva',
-      descripcion: 'La lógica exclusiva funciona exactamente como se describe.',
+      titulo: 'Interacción',
+      descripcion: 'La interacción de tu misión funciona exactamente como la describe tu panel.',
     },
+  ],
+
+  documentacion: [
+    { titulo: 'Vue: cómo empezar usando el CDN', url: 'https://vuejs.org/guide/quick-start.html#using-vue-from-cdn' },
+    { titulo: 'Vue: guía de lo esencial', url: 'https://vuejs.org/guide/essentials/template-syntax.html' },
+    { titulo: 'Tailwind: cómo usarlo con el CDN', url: 'https://v3.tailwindcss.com/docs/installation/play-cdn' },
+    { titulo: 'Tailwind: paleta de colores', url: 'https://v3.tailwindcss.com/docs/customizing-colors' },
   ],
 
   alumnos: [
@@ -122,7 +129,7 @@ const EXAMEN = Object.freeze({
     {
       nombre: 'Hector Dael Marquez Rodriguez',
       archivo: 'hector_m.html',
-      api: 'RestCountries API',
+      api: 'Datos de países (antes RestCountries)',
       tematica: 'Material Design Clásico',
       mision: 'Deslizador de Tarjetas (Slider)',
     },
