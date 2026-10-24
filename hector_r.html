@@ -1,227 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>hector dungeons</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>El Bestiario Carmesí</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+	<script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
 </head>
-<body bgcolor="#FFFF66" style="margin:0px;">
+<body class="min-w-[320px] bg-[#050505] bg-[radial-gradient(ellipse_at_50%_0%,#000000_0%,#3B0101_38%,#5C0000_78%)] font-[Cormorant_Garamond,Georgia,serif] text-[#330707] [color-scheme:dark]">
+	<div id="app" class="min-h-screen px-5 py-10 sm:px-8 sm:py-14">
+		<main class="mx-auto max-w-6xl">
+			<header class="mb-10 border-b border-red-700 pb-8 text-center sm:mb-12">
+				<p class="mb-3 font-[Cinzel,Georgia,serif] text-xs font-semibold uppercase tracking-[0.28em] text-red-400/80">Archivo de criaturas · Desde 1897</p>
+				<h1 class="font-[Cinzel,Georgia,serif] text-3xl font-semibold text-[#BF0000] sm:text-5xl">El Bestiario Carmesí</h1>
+				<p class="mx-auto mt-4 max-w-xl text-lg text-stone-400 sm:text-xl">Crónicas de las criaturas que acechan más allá de la luz.</p>
+				<div class="mt-6 flex items-center justify-center gap-3 text-sm text-stone-400" aria-live="polite">
+					<span class="h-px w-10 bg-red-700"></span>
+					<span v-if="cargando">Consultando los archivos...</span>
+					<span v-else>{{ monstruos.length }} criaturas registradas</span>
+					<span class="h-px w-10 bg-red-900"></span>
+				</div>
+			</header>
 
-<!-- ============================================================== -->
-<!-- PANEL DE INSTRUCCIONES DE EXAMEN - NO BORRAR NI MODIFICAR      -->
-<!-- Todo lo que esta DEBAJO de este panel es lo que debes rehacer  -->
-<!-- ============================================================== -->
-<div id="panel-instrucciones" style="max-width:860px; margin:24px auto; background:#ffffff; color:#222222; border:3px solid #222222; border-radius:16px; padding:28px 32px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.6; text-align:left;">
-  <p style="margin:0; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#666666;">Desarrollo Web II · Sabatino · Examen Escape Room</p>
-  <h1 style="margin:6px 0 4px 0; font-size:28px; line-height:1.25; font-weight:bold; color:#222222;">Hola, Hector. Este es tu examen.</h1>
-  <p style="margin:0 0 20px 0; font-size:14px; color:#666666;">Archivo: hector_r.html</p>
+			<p v-if="errorCarga" class="mb-6 border-l-2 border-red-700 bg-red-950/30 px-4 py-3 text-stone-300" role="status">
+				{{ errorCarga }}
+			</p>
 
-  <div style="margin:0 0 8px 0; padding:16px 20px; background:#fff4cc; border:2px solid #222222; border-radius:12px;">
-    <p style="margin:0 0 4px 0; font-weight:bold;">Tu misión en una frase</p>
-    <p style="margin:0;">Convierte esta tarjeta fea en un bestiario gótico de monstruos de Calabozos y Dragones, con globos de información al pasar el mouse.</p>
-  </div>
+			<section aria-label="Lista de monstruos" class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+				<article
+					v-for="monstruo in monstruos"
+					:key="monstruo.id || monstruo.nombre"
+					class="relative z-0 rounded-sm border border-[rgba(164,91,99,0.35)] bg-[linear-gradient(145deg,rgba(44,27,30,0.98),rgba(20,15,17,0.98))] p-3 transition-[border-color,transform,box-shadow] duration-200 ease-in-out hover:z-10 hover:-translate-y-[3px] hover:border-[#a44b56] hover:shadow-[0_14px_38px_rgba(0,0,0,0.4),0_0_22px_rgba(121,29,42,0.18)] focus-visible:z-10 focus-visible:-translate-y-[3px] focus-visible:border-[#a44b56] focus-visible:shadow-[0_14px_38px_rgba(0,0,0,0.4),0_0_22px_rgba(121,29,42,0.18)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#d28b91] motion-reduce:transition-none"
+					:class="{ 'z-10 -translate-y-[3px] border-[#a44b56] shadow-[0_14px_38px_rgba(0,0,0,0.4),0_0_22px_rgba(121,29,42,0.18)]': tooltipActivo === monstruo.id }"
+					tabindex="0"
+					:aria-label="'Información de ' + monstruo.nombre"
+					@mouseenter="tooltipActivo = monstruo.id"
+					@mouseleave="tooltipActivo = null"
+					@focus="tooltipActivo = monstruo.id"
+					@blur="tooltipActivo = null"
+				>
+					<div class="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-black/50">
+						<img
+							v-if="monstruo.imagen"
+							:src="monstruo.imagen"
+							:alt="'Retrato de ' + monstruo.nombre"
+							class="h-full w-full object-cover"
+							loading="lazy"
+						>
+						<div v-else class="flex h-full w-full flex-col items-center justify-center bg-gradient-to-b from-red-950/50 to-black font-[Cinzel,Georgia,serif] text-red-200/70" aria-hidden="true">
+							<span class="text-5xl">✦</span>
+							<span class="mt-2 text-[10px] uppercase tracking-[0.3em]">Sin retrato</span>
+						</div>
+						<span class="absolute left-3 top-3 border border-red-200/20 bg-black/70 px-2 py-1 font-[Cinzel,Georgia,serif] text-[10px] uppercase tracking-widest text-red-200">
+							{{ monstruo.tamano }}
+						</span>
+					</div>
 
-  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Antes de empezar</h2>
-  <p style="margin:0 0 10px 0;">Debajo de este panel hay una tarjeta hecha "a la antigua": está fea a propósito y su código está lleno de malas prácticas. Tu trabajo es rehacerla desde cero para que se vea profesional. La IA es tu asistente: pídele ayuda, pero tú decides cómo se ve.</p>
-  <p style="margin:0 0 10px 0;">Vas a usar dos herramientas, sin instalar nada:</p>
-  <ul style="margin:0 0 10px 0; padding-left:22px; list-style:disc;">
-    <li style="margin:0 0 6px 0;"><strong>Tailwind CSS</strong> te deja diseñar escribiendo clases directamente en el HTML, como <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">bg-pink-200</code> (fondo rosa) o <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">rounded-xl</code> (esquinas redondeadas). Es como aplicar estilos en Figma, pero con palabras.</li>
-    <li style="margin:0 0 6px 0;"><strong>Vue</strong> hace que tu página reaccione a lo que hace la persona (clics, escritura, mouse) y se encarga de mostrar los datos que llegan de internet.</li>
-  </ul>
-  <p style="margin:0 0 10px 0;"><strong>Importante:</strong> no borres este panel. Tu página nueva va debajo de él.</p>
+					<div class="px-2 pb-2 pt-4">
+						<h2 class="font-[Cinzel,Georgia,serif] text-lg font-semibold text-red-700">{{ monstruo.nombre }}</h2>
+						<p class="mt-1 text-base capitalize text-stone-200">{{ monstruo.tipo }}</p>
+						<p class="mt-3 text-xs uppercase tracking-[0.18em] text-red-400/75">Pasa el cursor para consultar</p>
+					</div>
 
-  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Paso 1 · Dale el look: Vampírico / Gótico</h2>
-  <p style="margin:0 0 10px 0;">Oscuro y misterioso, como un castillo de vampiros: rojo carmesí oscuro, negro y letras con serifas afiladas.</p>
-  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;">Clases de Tailwind que te pueden servir para empezar: <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">bg-black</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">text-red-800</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">border-red-900</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">font-serif</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">italic</code></p>
+					<div
+						v-if="tooltipActivo === monstruo.id"
+						class="absolute bottom-full left-2 right-2 z-20 mb-2 border border-red-800/80 bg-[#180d10] p-4 shadow-2xl shadow-black/70"
+						role="tooltip"
+					>
+						<p class="mb-3 border-b border-red-950 pb-2 font-[Cinzel,Georgia,serif] text-xs uppercase tracking-[0.18em] text-red-700">Registro de criatura</p>
+						<dl class="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
+							<dt class="text-white">Alineamiento</dt><dd class="text-right capitalize text-red-600">{{ monstruo.alineamiento }}</dd>
+							<dt class="text-white">Clase de armadura</dt><dd class="text-right text-red-600">{{ monstruo.claseArmadura }}</dd>
+							<dt class="text-white">Puntos de vida</dt><dd class="text-right text-red-600">{{ monstruo.puntosVida }}</dd>
+							<dt class="text-white">Desafío</dt><dd class="text-right text-red-600">{{ monstruo.desafio }}</dd>
+						</dl>
+					</div>
+				</article>
+			</section>
 
-  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Paso 2 · Muestra datos reales de D&amp;D 5e API</h2>
-  <p style="margin:0 0 10px 0;">Buena noticia: <strong>los datos ya llegan solos.</strong> Al final de este archivo hay un bloque llamado <strong>CONEXIÓN A LA API</strong> que trae monstruos de Calabozos y Dragones con sus estadísticas. No necesitas entenderlo ni cambiarlo: solo consérvalo en tu página.</p>
-  <p style="margin:0 0 10px 0;">Para pedir los datos se usa <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">await obtenerMonstruos()</code>. Cada monstruo trae esta información:</p>
-  <table style="width:100%; margin:0 0 10px 0; border-collapse:collapse; font-size:15px;">
-    <tr><th style="text-align:left; padding:6px 10px; background:#f2f2f2; border:1px solid #cccccc;">Dato</th><th style="text-align:left; padding:6px 10px; background:#f2f2f2; border:1px solid #cccccc;">Cómo escribirlo en tu diseño</th></tr>
-    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Nombre</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">monstruo.nombre</code></td></tr>
-    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Tipo (en inglés)</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">monstruo.tipo</code></td></tr>
-    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Tamaño</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">monstruo.tamano</code></td></tr>
-    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Alineamiento</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">monstruo.alineamiento</code></td></tr>
-    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Clase de armadura</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">monstruo.claseArmadura</code></td></tr>
-    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Puntos de vida</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">monstruo.puntosVida</code></td></tr>
-    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Nivel de desafío</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">monstruo.desafio</code></td></tr>
-    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Imagen (a veces vacía)</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">monstruo.imagen</code></td></tr>
-  </table>
-  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;">Usa las estadísticas (vida, armadura, desafío) como el texto de tus globos de información. Llegan 8 monstruos; puedes pedir más, por ejemplo obtenerMonstruos(12).</p>
-  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;">Si la API falla, verás datos de ejemplo y un aviso en la consola del navegador. No es tu culpa: sigue diseñando con ellos.</p>
+			<p v-if="!cargando && monstruos.length === 0" class="py-16 text-center text-stone-400">No se encontraron criaturas en los archivos.</p>
+			<footer class="mt-14 border-t border-red-950/80 pt-5 text-center text-sm text-stone-500">
+				Registros recopilados de la API de D&amp;D 5e
+			</footer>
+		</main>
+	</div>
 
-  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Paso 3 · Agrega la interacción: Globos de información (tooltips)</h2>
-  <p style="margin:0 0 10px 0;"><strong>Cómo se ve:</strong> Un globito de texto pequeño que flota junto a un elemento.</p>
-  <p style="margin:0 0 10px 0;"><strong>Cómo funciona:</strong> Al pasar el mouse encima de un monstruo aparece su globo. Al quitar el mouse, desaparece de inmediato.</p>
-  <p style="margin:0 0 10px 0;"><strong>Piénsalo como:</strong> el textito que aparece en Figma cuando dejas el mouse sobre una herramienta.</p>
+	<script>
+		const MONSTRUOS_DE_EJEMPLO = [
+			{ id: 'aboleth', nombre: 'Aboleth', tipo: 'aberration', tamano: 'Large', alineamiento: 'lawful evil', claseArmadura: 17, puntosVida: 135, desafio: 10, imagen: '' },
+			{ id: 'vampire', nombre: 'Vampire', tipo: 'undead', tamano: 'Medium', alineamiento: 'lawful evil', claseArmadura: 16, puntosVida: 144, desafio: 13, imagen: '' },
+			{ id: 'lich', nombre: 'Lich', tipo: 'undead', tamano: 'Medium', alineamiento: 'any evil alignment', claseArmadura: 17, puntosVida: 135, desafio: 21, imagen: '' },
+			{ id: 'adult-red-dragon', nombre: 'Adult Red Dragon', tipo: 'dragon', tamano: 'Huge', alineamiento: 'chaotic evil', claseArmadura: 19, puntosVida: 256, desafio: 17, imagen: '' },
+		];
 
-  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Tu punto de partida (copia y pega)</h2>
-  <p style="margin:0 0 10px 0;">Este es el esqueleto mínimo. Borra la tarjeta fea y arma tu página con estas cuatro partes, cada una en el lugar que indica su letra (A, B, C y D). Con eso los datos ya aparecen en pantalla; a partir de ahí, diseña.</p>
-  <pre style="margin:0 0 12px 0; padding:14px 16px; background:#1f1f1f; color:#f5f5f5; border-radius:10px; font-family:Consolas, monospace; font-size:13px; line-height:1.5; overflow-x:auto; white-space:pre;">&lt;!-- A) Dentro de &lt;head&gt;: las dos herramientas --&gt;
-&lt;script src="https://cdn.tailwindcss.com/3.4.17"&gt;&lt;/script&gt;
-&lt;script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"&gt;&lt;/script&gt;
+		async function pedirADnd(seccion) {
+			const respuesta = await fetch('https://www.dnd5eapi.co' + seccion, {
+				signal: AbortSignal.timeout(10000),
+				cache: 'no-store',
+			});
+			if (!respuesta.ok) throw new Error('La API respondió con el error ' + respuesta.status);
+			return respuesta.json();
+		}
 
-&lt;!-- B) En &lt;body&gt;, debajo de este panel: tu diseño --&gt;
-&lt;div id="app"&gt;
-  &lt;p v-for="monstruo in monstruos" :key="monstruo.id" class="font-serif"&gt;{{ monstruo.nombre }}&lt;/p&gt;
-&lt;/div&gt;
+		async function obtenerMonstruos(cantidad = 24) {
+			try {
+				const lista = await pedirADnd('/api/2014/monsters');
+				const primeros = lista.results.slice(0, cantidad);
+				const respuestas = await Promise.allSettled(primeros.map((monstruo) => pedirADnd(monstruo.url)));
+				const fichas = respuestas.filter((respuesta) => respuesta.status === 'fulfilled').map((respuesta) => respuesta.value);
+				if (fichas.length === 0) throw new Error('No llegó ninguna ficha de monstruo');
 
-&lt;!-- C) Aquí va el bloque "CONEXIÓN A LA API" (ya está al final de este archivo) --&gt;
+				return fichas.map((ficha) => ({
+					id: ficha.index,
+					nombre: ficha.name,
+					tipo: ficha.type,
+					tamano: ficha.size,
+					alineamiento: ficha.alignment,
+					claseArmadura: ficha.armor_class[0].value,
+					puntosVida: ficha.hit_points,
+					desafio: ficha.challenge_rating,
+					imagen: ficha.image ? 'https://www.dnd5eapi.co' + ficha.image : '',
+				}));
+			} catch (error) {
+				console.warn('La API de D&D no respondió. Se muestran monstruos de ejemplo.', error);
+				return MONSTRUOS_DE_EJEMPLO;
+			}
+		}
 
-&lt;!-- D) Al final de todo: tu código de Vue --&gt;
-&lt;script&gt;
-  const { createApp, ref, onMounted } = Vue;
+		const { createApp, ref, onMounted } = Vue;
 
-  createApp({
-    setup() {
-      const monstruos = ref([]);
+		createApp({
+			setup() {
+				const monstruos = ref([]);
+				const cargando = ref(true);
+				const errorCarga = ref('');
+				const tooltipActivo = ref(null);
 
-      onMounted(async () =&gt; {
-        monstruos.value = await obtenerMonstruos();
-      });
+				onMounted(async () => {
+					try {
+						monstruos.value = await obtenerMonstruos();
+					} catch (error) {
+						errorCarga.value = 'No fue posible consultar los archivos de monstruos.';
+						console.error(error);
+					} finally {
+						cargando.value = false;
+					}
+				});
 
-      return { monstruos };
-    },
-  }).mount('#app');
-&lt;/script&gt;</pre>
-
-  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Pídele ayuda a la IA</h2>
-  <p style="margin:0 0 10px 0;">Copia y pega este mensaje en tu IA favorita para empezar. Después sigue pidiéndole cambios con tus palabras ("hazlo más redondeado", "cambia el rosa por uno más suave").</p>
-  <div style="margin:0 0 12px 0; padding:14px 16px; background:#f3f0ff; border:2px dashed #6b5bd6; border-radius:10px; font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:1.55; white-space:pre-wrap;">Hola. Soy estudiante de diseño y estoy aprendiendo a programar. Tengo una página HTML que usa Vue 3 y Tailwind CSS cargados desde CDN (no puedo instalar nada).
-
-Ya tengo una función llamada obtenerMonstruos() que me regresa una lista de monstruos; cada uno tiene nombre, tipo, tamano, alineamiento, claseArmadura, puntosVida, desafio e imagen.
-
-Ayúdame a crear, dentro de &lt;div id="app"&gt;, un diseño estilo Vampírico / Gótico: oscuro y misterioso, como un castillo de vampiros: rojo carmesí oscuro, negro y letras con serifas afiladas.
-
-La página debe tener globos de información (tooltips) que aparecen al pasar el mouse sobre cada monstruo y desaparecen de inmediato al quitarlo.
-
-Dame el código completo y explícame cada parte con palabras sencillas, como si yo no supiera programar.</div>
-  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;"><strong>Tip del profe:</strong> "En Vue 3, necesito controlar la visibilidad de un div flotante usando variables reactivas con los eventos nativos de Vue @mouseenter y @mouseleave."</p>
-
-  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">¿Cómo sé que terminé?</h2>
-  <ul style="margin:0 0 10px 0; padding-left:22px; list-style:disc;">
-    <li style="margin:0 0 6px 0;">Borraste la tarjeta fea y en su lugar hay un diseño nuevo hecho con Tailwind: sin tablas para acomodar cosas, sin etiquetas viejas como <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">&lt;font&gt;</code> o <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">&lt;center&gt;</code> y sin <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">style="..."</code> dentro de las etiquetas.</li>
-    <li style="margin:0 0 6px 0;">La página se ve claramente <strong>Vampírico / Gótico</strong>.</li>
-    <li style="margin:0 0 6px 0;">Se muestran monstruos reales que llegan de la API, no texto inventado.</li>
-    <li style="margin:0 0 6px 0;">El globo aparece al pasar el mouse y se va al quitarlo.</li>
-    <li style="margin:0 0 6px 0;">Funciona abriendo el archivo con doble clic, sin instalar nada.</li>
-  </ul>
-
-  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Documentación útil</h2>
-  <ul style="margin:0 0 10px 0; padding-left:22px; list-style:disc;">
-    <li style="margin:0 0 6px 0;"><a href="https://vuejs.org/guide/quick-start.html#using-vue-from-cdn" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Vue: cómo empezar usando el CDN</a></li>
-    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/installation/play-cdn" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: cómo usarlo con el CDN</a></li>
-    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/customizing-colors" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: paleta de colores</a></li>
-    <li style="margin:0 0 6px 0;"><a href="https://vuejs.org/guide/essentials/event-handling.html" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Vue: reaccionar a clics y al mouse (@click)</a></li>
-    <li style="margin:0 0 6px 0;"><a href="https://vuejs.org/guide/essentials/conditional.html" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Vue: mostrar u ocultar cosas (v-if)</a></li>
-    <li style="margin:0 0 6px 0;"><a href="https://vuejs.org/guide/essentials/list.html" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Vue: repetir un elemento por cada dato (v-for)</a></li>
-    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/position" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: posición (fijar algo en pantalla)</a></li>
-    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/font-family" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: tipografías</a></li>
-  </ul>
-  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;">La documentación está en inglés: si lo necesitas, usa el botón de traducir de tu navegador. Usa la versión 3 de Tailwind; los enlaces ya te llevan ahí.</p>
-
-  <details style="margin:28px 0 0 0; padding:12px 16px; background:#f7f7f7; border-radius:10px;">
-    <summary style="cursor:pointer; font-weight:bold;">Mini diccionario (por si una palabra te suena rara)</summary>
-    <ul style="margin:0 0 10px 0; padding-left:22px; list-style:disc;">
-    <li style="margin:0 0 6px 0;"><strong>API:</strong> un servicio en internet que te manda datos (películas, clima, fotos) para mostrarlos en tu página.</li>
-    <li style="margin:0 0 6px 0;"><strong>CDN:</strong> una forma de usar una herramienta pegando una sola línea en tu HTML, sin instalar nada.</li>
-    <li style="margin:0 0 6px 0;"><strong>Clase de Tailwind:</strong> una palabra que aplica un estilo. Por ejemplo, <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">p-4</code> agrega relleno y <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">text-center</code> centra el texto.</li>
-    <li style="margin:0 0 6px 0;"><strong>ref:</strong> una cajita donde Vue guarda un dato que puede cambiar. Cuando cambia, la página se actualiza sola.</li>
-    <li style="margin:0 0 6px 0;"><strong>{{ }}:</strong> dentro del HTML, muestra el valor de un dato. Por ejemplo, <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">{{ monstruo.nombre }}</code>.</li>
-    <li style="margin:0 0 6px 0;"><strong>v-for:</strong> repite un elemento por cada dato de una lista (por ejemplo, una tarjeta por cada elemento).</li>
-    <li style="margin:0 0 6px 0;"><strong>v-if:</strong> muestra un elemento solo si se cumple una condición.</li>
-    <li style="margin:0 0 6px 0;"><strong>@click:</strong> indica qué pasa cuando alguien hace clic. También existen <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">@mouseenter</code> y <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">@mouseleave</code> para el mouse.</li>
-    <li style="margin:0 0 6px 0;"><strong>await:</strong> le dice al código "espera a que lleguen los datos antes de seguir".</li>
-  </ul>
-  </details>
-</div>
-<!-- ===================== FIN DEL PANEL ===================== -->
-
-
-<table width="750" border="1" cellspacing="0" cellpadding="5" style="margin-left:60px;">
-<tr>
-  <td colspan="2" bgcolor="#00BFFF" align="right">
-    <font face="Comic Sans MS" size="6" color="#FFFF00"><b>Bestiario de Hector</b></font>
-  </td>
-</tr>
-<tr>
-  <td bgcolor="#FF7F50" width="35%" align="center" valign="top">
-    <img src="https://placeholder.invalid/hector.png" width="170" height="210" alt="Hector" style="border:3px double blue;">
-    <br>
-    <font size="4" color="#00FF00"><b>Hector Rodriguez Rivera</b></font><br>
-    <font size="2" color="#FF7F50">Dungeon Master nivel 1</font>
-  </td>
-  <td bgcolor="#E0FFFF" valign="top">
-    <font size="5" color="#8A2BE2"><u>Monstruos conocidos</u></font><br>
-    <font size="1" color="gray">(pasa el mouse para ver la descripcion)</font>
-    <!-- el globo aparece pero NUNCA se quita al salir; todos usan el mismo div -->
-    <p onmouseover="document.getElementById('globo').style.display='block'; document.getElementById('globo').innerHTML='Dragon rojo: escupe fuego'" style="background:#FFDEAD; width:150px;"><font color="red">Dragon Rojo</font></p>
-    <p onmouseover="document.getElementById('globo').style.display='block'; document.getElementById('globo').innerHTML='Beholder: tiene muchos ojos'" style="background:#7B68EE; width:220px; margin-left:50px;"><font color="#9370DB">Beholder</font></p>
-    <p title="Vampiro: no le gusta el sol" style="background:#32CD32; width:100px;"><font color="black" size="4">Vampiro</font></p>
-    <p onmouseover="document.getElementById('globo').style.display='block'" style="background:#FF00FF; width:300px;"><font color="white">Liche</font></p>
-    <div id="globo" style="display:none; position:absolute; top:900px; left:20px; background:lime; border:4px solid red; padding:10px; font-size:20px;">...</div>
-  </td>
-</tr>
-<tr>
-  <td colspan="2" bgcolor="#FFE4E1">
-    <center><button onclick="alert('Sacaste un 1. Fallaste.')" style="background:#B22222; color:#CD5C5C; font-size:24px; border-radius:0px; padding:2px 60px;">TIRAR DADO D20</button></center>
-  </td>
-</tr>
-</table>
-
-<script>
-var mostrandoGlobo = false
-var monstruos = "dragon,beholder,vampiro,liche"
-</script>
-<!-- =====================================================================
-     CONEXIÓN A LA API · YA ESTÁ LISTA, NO NECESITAS CAMBIARLA
-     Cuando hagas tu página nueva, conserva este bloque completo y deja
-     tu código de Vue DEBAJO de él. Te da la función: obtenerMonstruos()
-     ===================================================================== -->
-<script>
-  // Monstruos de ejemplo: solo se usan si la API no responde, para que puedas seguir trabajando.
-  const MONSTRUOS_DE_EJEMPLO = [
-    { id: 'aboleth', nombre: 'Aboleth', tipo: 'aberration', tamano: 'Large', alineamiento: 'lawful evil', claseArmadura: 17, puntosVida: 135, desafio: 10, imagen: '' },
-    { id: 'vampire', nombre: 'Vampire', tipo: 'undead', tamano: 'Medium', alineamiento: 'lawful evil', claseArmadura: 16, puntosVida: 144, desafio: 13, imagen: '' },
-    { id: 'lich', nombre: 'Lich', tipo: 'undead', tamano: 'Medium', alineamiento: 'any evil alignment', claseArmadura: 17, puntosVida: 135, desafio: 21, imagen: '' },
-    { id: 'adult-red-dragon', nombre: 'Adult Red Dragon', tipo: 'dragon', tamano: 'Huge', alineamiento: 'chaotic evil', claseArmadura: 19, puntosVida: 256, desafio: 17, imagen: '' },
-  ];
-
-  // Pide una sección de la API de Calabozos y Dragones.
-  async function pedirADnd(seccion) {
-    const respuesta = await fetch('https://www.dnd5eapi.co' + seccion, { signal: AbortSignal.timeout(10000), cache: 'no-store' });
-    if (!respuesta.ok) throw new Error('La API respondió con el error ' + respuesta.status);
-    return respuesta.json();
-  }
-
-  // Trae monstruos con sus estadísticas (máximo 30).
-  // Úsala así:  monstruos.value = await obtenerMonstruos();
-  async function obtenerMonstruos(cantidad = 8) {
-    try {
-      const lista = await pedirADnd('/api/2014/monsters');
-      const primeros = lista.results.slice(0, cantidad);
-
-      // Pide la ficha de cada monstruo al mismo tiempo y se queda con las que sí llegaron.
-      const respuestas = await Promise.allSettled(primeros.map((monstruo) => pedirADnd(monstruo.url)));
-      const fichas = respuestas.filter((r) => r.status === 'fulfilled').map((r) => r.value);
-      if (fichas.length === 0) throw new Error('No llegó ninguna ficha de monstruo');
-
-      return fichas.map((ficha) => ({
-        id: ficha.index,
-        nombre: ficha.name,
-        tipo: ficha.type,
-        tamano: ficha.size,
-        alineamiento: ficha.alignment,
-        claseArmadura: ficha.armor_class[0].value,
-        puntosVida: ficha.hit_points,
-        desafio: ficha.challenge_rating,
-        imagen: ficha.image ? 'https://www.dnd5eapi.co' + ficha.image : '',
-      }));
-    } catch (error) {
-      console.warn('La API de D&D no respondió. Se muestran monstruos de ejemplo.', error);
-      return MONSTRUOS_DE_EJEMPLO;
-    }
-  }
-</script>
+				return { monstruos, cargando, errorCarga, tooltipActivo };
+			},
+		}).mount('#app');
+	</script>
 </body>
 </html>
