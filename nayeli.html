@@ -1,8 +1,12 @@
-<!DOCTYPE html>
+/Users/Usuario/Desktop/examen/ExamenDesarrolloWebIISabatino/nayeli.html<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>perfil nayeli FINAL final v3 (ahora si)</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
+<!-- Vue 3 -->
+<script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
 </head>
 <body bgcolor="#7FFF00" style="margin:0px;">
 
@@ -136,52 +140,105 @@ Dame el código completo y explícame cada parte con palabras sencillas, como si
 <!-- ===================== FIN DEL PANEL ===================== -->
 
 
-<center>
-<table width="700" border="3" cellpadding="0" cellspacing="6" bgcolor="#FF00FF" style="border-color:orange;">
-<tr>
-  <td width="200" bgcolor="yellow" valign="top">
-    <img src="img/foto_nayeli_NUEVA.jpgg" width="180" height="180" alt="foto"><br>
-    <font face="Comic Sans MS" size="2" color="blue">foto de perfil (no carga, ya se)</font>
-  </td>
-  <td valign="bottom" bgcolor="#00FFFF">
-    <font size="7" color="red" face="Impact"><b><i>Nayeli Belen Bautista Maldonado</i></b></font><br>
-    <font size="1" color="#FFFF00">Alumna de Desarrollo Web II</font>
-    <br><br><br>
-    <marquee bgcolor="black" scrollamount="15"><font color="lime">Bienvenidos a mi perfil de peliculas de Studio Ghibli!!!!!!</font></marquee>
-  </td>
-</tr>
-<tr>
-  <td colspan="2" bgcolor="white">
-    <font color="gray" size="5"><u>Mis peliculas favoritas</u></font>
-    <font size="1" color="silver">(escritas a mano, no vienen de ninguna API)</font>
-    <table border="1" width="100%" cellspacing="0">
-      <tr><td bgcolor="red"><font color="yellow">El viaje de Chihiro</font></td><td bgcolor="blue"><font color="red">2001</font></td></tr>
-      <tr><td bgcolor="green"><font color="pink">Mi vecino Totoro</font></td><td bgcolor="black"><font color="#333333">1988</font></td></tr>
-      <tr><td bgcolor="purple"><font color="orange">El castillo ambulante</font></td><td bgcolor="#FFFF99"><font color="white">2004</font></td></tr>
-    </table>
-  </td>
-</tr>
-<tr>
-  <td colspan="2" bgcolor="#8B4513">
-    <font color="white" size="4"><b>Preguntas Frecuentes</b></font><br>
-    <!-- se abren pero NUNCA se cierran, y se pueden abrir todas al mismo tiempo -->
-    <div onclick="document.getElementById('r1').style.display='block'" style="background:orange; padding:3px; margin-top:2px; cursor:pointer; width:90%;"><font color="purple">Pregunta 1: cual es tu personaje favorito?</font></div>
-    <div id="r1" style="display:none; background:pink; float:right; width:60%;">Totoro obvio</div>
-    <div onclick="document.getElementById('r2').style.display='block'" style="background:red; padding:9px; margin-top:12px; cursor:pointer; width:70%;"><font color="lime">Pregunta 2: cual pelicula viste primero?</font></div>
-    <div id="r2" style="display:none; background:cyan;">Ponyo, en la tele</div>
-    <div onclick="document.getElementById('r3').style.display='block'" style="background:navy; padding:1px; margin-top:0px; cursor:pointer;"><font color="black">Pregunta 3: por que te gusta Ghibli?</font></div>
-    <div id="r3" style="display:none; background:yellow; text-align:right;">Por los dibujos y la comida</div>
-    <br clear="all">
-  </td>
-</tr>
-<tr>
-  <td colspan="2" align="right">
-    <button onclick="alert('Gracias por seguirme!!!')" style="float:left; background:lime; font-size:22px; border:5px dotted red; font-family:Courier;">SEGUIR</button>
-    <font size="1">seguidores: <span id="cnt">0</span></font>
-  </td>
-</tr>
-</table>
-</center>
+<main class="mx-auto my-10 w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+  <section class="overflow-hidden rounded-3xl border border-pink-200 bg-white shadow-xl shadow-pink-200/60">
+    <header class="bg-gradient-to-br from-pink-100 via-white to-emerald-100 p-6 sm:p-10">
+      <div class="flex flex-col items-center gap-6 text-center sm:flex-row sm:text-left">
+        <div role="img" aria-label="Avatar de Nayeli" class="flex h-32 w-32 shrink-0 items-center justify-center rounded-full border-4 border-white bg-emerald-100 text-4xl font-bold text-pink-700 shadow-lg shadow-emerald-200 sm:h-40 sm:w-40">
+          NB
+        </div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold uppercase tracking-widest text-emerald-800">Mi perfil Ghibli</p>
+          <h1 class="mt-2 break-words text-3xl font-extrabold text-pink-800 sm:text-4xl">Nayeli Belen Bautista Maldonado</h1>
+          <p class="mt-3 inline-flex rounded-full bg-white/80 px-4 py-2 text-sm font-medium text-emerald-900 shadow-sm">Alumna de Desarrollo Web II</p>
+          <p class="mt-5 text-lg leading-relaxed text-emerald-950">Bienvenidos a mi perfil de peliculas de Studio Ghibli!!!!!!</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="p-6 sm:p-10" aria-labelledby="favoritas-titulo">
+      <div class="mb-5">
+        <h2 id="favoritas-titulo" class="text-2xl font-bold text-pink-800">Mis peliculas favoritas</h2>
+        <p class="mt-1 text-sm text-emerald-800">(escritas a mano, no vienen de ninguna API)</p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="rounded-2xl border border-pink-200 bg-pink-50 p-5 shadow-md shadow-pink-100">
+          <p class="text-sm font-semibold text-pink-700">Favorita</p>
+          <h3 class="mt-2 text-lg font-bold text-pink-900">El viaje de Chihiro</h3>
+          <p class="mt-3 inline-flex rounded-full bg-white px-3 py-1 text-sm font-semibold text-emerald-800">2001</p>
+        </article>
+        <article class="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 shadow-md shadow-emerald-100">
+          <p class="text-sm font-semibold text-emerald-700">Favorita</p>
+          <h3 class="mt-2 text-lg font-bold text-emerald-950">Mi vecino Totoro</h3>
+          <p class="mt-3 inline-flex rounded-full bg-white px-3 py-1 text-sm font-semibold text-pink-800">1988</p>
+        </article>
+        <article class="rounded-2xl border border-pink-200 bg-gradient-to-br from-pink-50 to-emerald-50 p-5 shadow-md shadow-pink-100 sm:col-span-2 lg:col-span-1">
+          <p class="text-sm font-semibold text-pink-700">Favorita</p>
+          <h3 class="mt-2 text-lg font-bold text-pink-900">El castillo ambulante</h3>
+          <p class="mt-3 inline-flex rounded-full bg-white px-3 py-1 text-sm font-semibold text-emerald-800">2004</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="border-t border-pink-100 bg-emerald-50/70 p-6 sm:p-10" aria-labelledby="preguntas-titulo">
+      <h2 id="preguntas-titulo" class="mb-5 text-2xl font-bold text-emerald-900">Preguntas Frecuentes</h2>
+      <!-- se abren pero NUNCA se cierran, y se pueden abrir todas al mismo tiempo -->
+      <div class="space-y-3">
+        <div class="overflow-hidden rounded-2xl border border-pink-200 bg-white shadow-sm">
+          <button type="button" aria-controls="r1" aria-expanded="false" onclick="document.getElementById('r1').style.display='block'; this.setAttribute('aria-expanded', 'true')" class="w-full rounded-2xl px-5 py-4 text-left font-semibold text-pink-800 transition hover:bg-pink-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-pink-400">Pregunta 1: cual es tu personaje favorito?</button>
+          <div id="r1" style="display:none" class="mx-4 mb-4 rounded-xl bg-pink-50 p-4 text-pink-950">Totoro obvio</div>
+        </div>
+        <div class="overflow-hidden rounded-2xl border border-emerald-200 bg-white shadow-sm">
+          <button type="button" aria-controls="r2" aria-expanded="false" onclick="document.getElementById('r2').style.display='block'; this.setAttribute('aria-expanded', 'true')" class="w-full rounded-2xl px-5 py-4 text-left font-semibold text-emerald-900 transition hover:bg-emerald-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-400">Pregunta 2: cual pelicula viste primero?</button>
+          <div id="r2" style="display:none" class="mx-4 mb-4 rounded-xl bg-emerald-50 p-4 text-emerald-950">Ponyo, en la tele</div>
+        </div>
+        <div class="overflow-hidden rounded-2xl border border-pink-200 bg-white shadow-sm">
+          <button type="button" aria-controls="r3" aria-expanded="false" onclick="document.getElementById('r3').style.display='block'; this.setAttribute('aria-expanded', 'true')" class="w-full rounded-2xl px-5 py-4 text-left font-semibold text-pink-800 transition hover:bg-pink-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-pink-400">Pregunta 3: por que te gusta Ghibli?</button>
+          <div id="r3" style="display:none" class="mx-4 mb-4 rounded-xl bg-pink-50 p-4 text-pink-950">Por los dibujos y la comida</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="flex flex-col items-center justify-between gap-4 border-t border-pink-100 bg-white p-6 sm:flex-row sm:px-10">
+      <button type="button" onclick="sumar(); alert('Gracias por seguirme!!!')" class="rounded-full bg-pink-200 px-7 py-3 font-bold text-pink-900 shadow-md shadow-pink-200 transition hover:-translate-y-0.5 hover:bg-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2">SEGUIR</button>
+      <p class="rounded-full bg-emerald-50 px-5 py-2 text-sm font-semibold text-emerald-900">seguidores: <span id="cnt">0</span></p>
+    </footer>
+  </section>
+</main>
+
+<div id="app" class="mx-auto my-12 max-w-6xl rounded-3xl bg-gradient-to-br from-pink-100 via-white to-emerald-100 p-5 shadow-xl sm:p-8">
+  <header class="mb-8 text-center">
+    <p class="text-sm font-semibold uppercase tracking-widest text-emerald-700">Un rinconcito Ghibli</p>
+    <h2 class="mt-2 text-3xl font-bold text-pink-700 sm:text-4xl">Películas para soñar</h2>
+    <p class="mt-3 text-emerald-900">Explora sus historias y abre la sinopsis que quieras leer.</p>
+    <p v-if="peliculas.length" class="mt-2 text-sm text-pink-700">{{ peliculas.length }} películas</p>
+  </header>
+
+  <p v-if="cargando" class="py-10 text-center text-emerald-800">Cargando películas...</p>
+  <p v-else-if="!peliculas.length" class="py-10 text-center text-pink-700">No hay películas disponibles por ahora.</p>
+
+  <div v-else class="grid gap-6 md:grid-cols-2">
+    <article v-for="pelicula in peliculas" :key="pelicula.id" class="overflow-hidden rounded-3xl bg-white/90 shadow-lg ring-1 ring-pink-200">
+      <div class="grid sm:grid-cols-[9rem_1fr]">
+        <img v-if="pelicula.imagen" :src="pelicula.imagen" :alt="'Póster de ' + pelicula.titulo" class="h-56 w-full object-cover sm:h-full sm:min-h-56" loading="lazy">
+        <div v-else class="flex min-h-40 items-center justify-center bg-emerald-100 text-4xl" aria-hidden="true">*</div>
+        <div class="p-5">
+          <h3 class="text-xl font-bold text-pink-700">{{ pelicula.titulo }}</h3>
+          <p class="mt-1 text-sm italic text-emerald-800">{{ pelicula.tituloOriginal }}</p>
+          <dl class="mt-4 space-y-1 text-sm text-emerald-950">
+            <div><dt class="inline font-semibold">Dirección: </dt><dd class="inline">{{ pelicula.director }}</dd></div>
+            <div><dt class="inline font-semibold">Año: </dt><dd class="inline">{{ pelicula.anio }}</dd></div>
+          </dl>
+          <button type="button" class="mt-5 flex w-full items-center justify-between rounded-2xl bg-pink-100 px-4 py-3 text-left font-semibold text-pink-800 transition hover:bg-pink-200 focus:outline-none focus:ring-2 focus:ring-pink-500" :aria-expanded="preguntaAbierta === pelicula.id" @click="alternarPregunta(pelicula.id)">
+            <span>Leer sinopsis</span>
+            <span aria-hidden="true">{{ preguntaAbierta === pelicula.id ? '−' : '+' }}</span>
+          </button>
+          <p v-if="preguntaAbierta === pelicula.id" class="mt-3 rounded-2xl bg-emerald-50 p-4 leading-relaxed text-emerald-950">{{ pelicula.descripcion }}</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
 
 <script>
 var contador = 0
@@ -222,6 +279,28 @@ function sumar(){ contador = contador + 1; document.getElementById('cnt').innerH
       return PELICULAS_DE_EJEMPLO;
     }
   }
+</script>
+<script>
+  const { createApp, ref, onMounted } = Vue;
+
+  createApp({
+    setup() {
+      const peliculas = ref([]);
+      const cargando = ref(true);
+      const preguntaAbierta = ref(null);
+
+      function alternarPregunta(id) {
+        preguntaAbierta.value = preguntaAbierta.value === id ? null : id;
+      }
+
+      onMounted(async () => {
+        peliculas.value = await obtenerPeliculasGhibli();
+        cargando.value = false;
+      });
+
+      return { peliculas, cargando, preguntaAbierta, alternarPregunta };
+    },
+  }).mount('#app');
 </script>
 </body>
 </html>
