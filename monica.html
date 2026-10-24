@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8">gi
 <title>MONICA ARTE - Examen</title>
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
@@ -136,40 +136,83 @@ Dame el código completo y explícame cada parte con palabras sencillas, como si
 <!-- ===================== FIN DEL PANEL ===================== -->
 
 
-<center>
-<table border="7" bordercolor="#FF4500" bgcolor="#87CEFA" width="600" cellpadding="12">
-<tr>
-  <td align="center" bgcolor="#FFB6C1">
-    <img src="monica_perfil" width="140" height="140" alt="imagen no disponible" hspace="40" vspace="10" align="left">
-    <font size="6" color="#4B0082" face="Lucida Handwriting"><b>Monica Lizeth Hernandez Lira</b></font><br>
-    <font size="2" color="#FF69B4"><i>curadora de arte (de mi cuarto)</i></font>
-    <br clear="left">
-  </td>
-</tr>
-<tr>
-  <td bgcolor="#2E8B57">
-    <font color="#3CB371" size="5"><u>Obras de arte</u></font><br>
-    <!-- se ven TODAS desde el inicio, el boton de cargar mas no sirve -->
-    <ol>
-      <li><font color="yellow"><b>La Gran Ola</b></font> - <font size="1" color="black">Hokusai</font></li>
-      <li><font color="#FF00FF"><b>Noche Estrellada</b></font> - <font size="1">Van Gogh (este no esta en Chicago)</font></li>
-      <li><font color="white" size="5">American Gothic</font> - <font size="1" color="white">Grant Wood</font></li>
-      <li><font color="#2E8B57">Nighthawks</font> - Edward Hopper</li>
-      <li><font color="red"><s>Mona Lisa</s></font> - <font size="1">no se quien</font></li>
-      <li><font color="orange" size="1">Tarde de domingo</font> - Seurat</li>
-    </ol>
-    <div align="right">
-      <input type="button" value="Cargar mas" onclick="alert('Ya no hay mas que cargar')" style="background:#008B8B; color:#00FFFF; font-size:11px;">
+
+<div id="app" class="min-h-screen bg-black text-amber-100 px-6 py-12">
+  <header class="max-w-6xl mx-auto text-center mb-16">
+    <p class="text-amber-400 uppercase tracking-[0.3em] text-xs mb-5">
+      Monica Arte · Fine Art Collection
+    </p>
+
+    <div class="border-y border-amber-500 py-8">
+      <p class="text-amber-500 text-2xl mb-4">✧ ◆ ✧</p>
+      <h1 class="text-4xl md:text-6xl font-serif uppercase tracking-[0.15em]">
+        Art Deco Gallery
+      </h1>
+      <p class="text-amber-300 mt-5 text-sm tracking-[0.25em] uppercase">
+        A timeless collection of masterpieces
+      </p>
     </div>
-  </td>
-</tr>
-<tr>
-  <td bgcolor="#F4A460" align="left">
-    <button onclick="alert('Compra exitosa de 0 obras')" style="background:#FFD700; color:white; border:1px solid #FFD700; padding:20px 4px; margin-left:380px; font-size:14px;">COMPRAR OBRA</button>
-  </td>
-</tr>
-</table>
-</center>
+  </header>
+
+  <main class="max-w-6xl mx-auto">
+    <div class="flex items-center gap-4 mb-10">
+      <div class="h-px bg-amber-600 flex-1"></div>
+      <h2 class="uppercase tracking-[0.2em] text-sm text-center">
+        Selected Masterpieces
+      </h2>
+      <div class="h-px bg-amber-600 flex-1"></div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <article v-for="(obra, indice) in obras.slice(0, limite)"
+        :key="obra.id || indice"
+        class="bg-zinc-950 border border-amber-700 p-3">
+
+        <div class="aspect-[4/3] bg-zinc-900 overflow-hidden flex items-center justify-center">
+          <img v-if="obra.imagen"
+            :src="obra.imagen"
+            :alt="obra.titulo"
+            class="w-full h-full object-cover">
+
+          <div v-else class="text-amber-500 text-5xl">✧</div>
+        </div>
+
+        <div class="border-t border-amber-800 mt-3 pt-4 px-2 pb-3">
+          <p class="text-amber-400 text-xs tracking-widest mb-2">
+            NO. {{ String(indice + 1).padStart(2, '0') }}
+          </p>
+          <h3 class="text-xl font-serif mb-3">
+            {{ obra.titulo }}
+          </h3>
+          <p class="text-sm text-stone-400">
+            {{ obra.artista || 'Artista desconocido' }}
+          </p>
+          <p class="text-xs text-amber-200/70 mt-2">
+            {{ obra.fecha || 'Fecha desconocida' }}
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <div class="text-center mt-14">
+      <button v-if="limite < obras.length"
+        @click="limite += 2"
+        class="border border-amber-500 text-amber-300 px-10 py-4 uppercase tracking-widest text-xs hover:bg-amber-400 hover:text-black transition-colors">
+        + Cargar más obras
+      </button>
+      <p v-else class="text-amber-500 text-xs uppercase tracking-widest">
+        Colección completa
+      </p>
+    </div>
+  </main>
+
+  <footer class="max-w-6xl mx-auto mt-20 border-t border-amber-800 pt-6 text-center">
+    <p class="text-amber-500 text-xs tracking-[0.3em] uppercase">
+      Monica Arte · Est. 2026
+    </p>
+  </footer>
+</div>
+
 
 <script>
 var limite = 6
