@@ -2,9 +2,50 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>emilio cervecerias</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
+<style>
+  :root {
+    color-scheme: dark;
+    --metal: #252a2c;
+    --metal-light: #343b3d;
+    --copper: #b8734f;
+    --brass: #c6a96a;
+    --paper: #e6dfcf;
+  }
+
+  body {
+    margin: 0;
+    background-color: #1b1f20;
+    background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, .025) 0 1px, transparent 1px 7px);
+    color: var(--paper);
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  .workshop-shell {
+    background-color: var(--metal);
+    background-image: linear-gradient(115deg, rgba(255,255,255,.035), transparent 38%), repeating-linear-gradient(0deg, transparent 0 39px, rgba(255,255,255,.025) 40px);
+  }
+
+  .metal-edge {
+    box-shadow: inset 0 1px rgba(255,255,255,.13), inset 0 -1px rgba(0,0,0,.65), 0 18px 50px rgba(0,0,0,.25);
+  }
+
+  .brewery-card {
+    background-image: linear-gradient(135deg, rgba(255,255,255,.045), transparent 55%);
+    transition: border-color .18s ease, transform .18s ease, background-color .18s ease;
+  }
+
+  .brewery-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--brass);
+    background-color: #333a3c;
+  }
+</style>
 </head>
-<body bgcolor="#E0FFFF" style="margin:0px; font-family:Verdana;">
+<body>
 
 <!-- ============================================================== -->
 <!-- PANEL DE INSTRUCCIONES DE EXAMEN - NO BORRAR NI MODIFICAR      -->
@@ -56,29 +97,50 @@
   <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Tu punto de partida (copia y pega)</h2>
   <p style="margin:0 0 10px 0;">Este es el esqueleto mínimo. Borra la tarjeta fea y arma tu página con estas cuatro partes, cada una en el lugar que indica su letra (A, B, C y D). Con eso los datos ya aparecen en pantalla; a partir de ahí, diseña.</p>
   <pre style="margin:0 0 12px 0; padding:14px 16px; background:#1f1f1f; color:#f5f5f5; border-radius:10px; font-family:Consolas, monospace; font-size:13px; line-height:1.5; overflow-x:auto; white-space:pre;">&lt;!-- A) Dentro de &lt;head&gt;: las dos herramientas --&gt;
-&lt;script src="https://cdn.tailwindcss.com/3.4.17"&gt;&lt;/script&gt;
+<;script src="https://cdn.tailwindcss.com/3.4.17"&gt;&lt;/script&gt;
 &lt;script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"&gt;&lt;/script&gt;
 
 &lt;!-- B) En &lt;body&gt;, debajo de este panel: tu diseño --&gt;
-&lt;div id="app"&gt;
-  &lt;p v-for="cerveceria in cervecerias" :key="cerveceria.id" class="font-mono"&gt;{{ cerveceria.nombre }}&lt;/p&gt;
-&lt;/div&gt;
+<div id="app">
+  <div class="bg-zinc-700 text-amber-200 border-4 border-amber-700 shadow-inner p-6">
+    <h1 class="text-3xl font-mono">Cervecerías del mundo</h1>
 
-&lt;!-- C) Aquí va el bloque "CONEXIÓN A LA API" (ya está al final de este archivo) --&gt;
+    <input v-model="busqueda" type="text" placeholder="Buscar cervecería..."
+      class="w-full p-2 mb-4 bg-zinc-800 text-amber-200 border-2 border-amber-700 font-mono">
 
-&lt;!-- D) Al final de todo: tu código de Vue --&gt;
-&lt;script&gt;
-  const { createApp, ref, onMounted } = Vue;
+    <div v-for="cerveceria in cerveceriasFiltradas" :key="cerveceria.id" class="font-mono mb-4">
+      <p>{{ cerveceria.nombre }}</p>
+      <p>{{ cerveceria.tipo }}</p>
+      <p>{{ cerveceria.ciudad }}, {{ cerveceria.estado }}</p>
+      <p>{{ cerveceria.pais }}</p>
+      <a :href="cerveceria.sitioWeb" target="_blank">{{ cerveceria.sitioWeb }}</a>
+    </div>
+  </div>
+</div>
+
+<!-- C) Aquí va el bloque "CONEXIÓN A LA API" (ya está al final de este archivo) -->;
+
+<!-- D) Al final de todo: tu código de Vue -->;
+<;script>;
+  const { createApp, ref, computed, onMounted } = Vue;
 
   createApp({
     setup() {
       const cervecerias = ref([]);
+      const busqueda = ref('');
 
-      onMounted(async () =&gt; {
+      const cerveceriasFiltradas = computed(() => {
+        return cervecerias.value.filter(c =>
+
+          c.nombre.toLowerCase().includes(busqueda.value.toLowerCase())
+        );
+      });
+
+      onMounted(async () =>; {
         cervecerias.value = await obtenerCervecerias();
       });
 
-      return { cervecerias };
+      return { cervecerias, busqueda, cerveceriasFiltradas};
     },
   }).mount('#app');
 &lt;/script&gt;</pre>
@@ -136,47 +198,94 @@ Dame el código completo y explícame cada parte con palabras sencillas, como si
 <!-- ===================== FIN DEL PANEL ===================== -->
 
 
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-<tr>
-  <td bgcolor="#FF1493" height="80" colspan="2">
-    <marquee direction="right" behavior="alternate"><font size="6" color="#00FF00" face="Brush Script MT">Cervecerias del Mundo por Emilio</font></marquee>
-  </td>
-</tr>
-<tr>
-  <td width="220" bgcolor="#FFFF00" valign="top" align="center">
-    <br>
-    <img src="file:///D:/fotos/emilio_2015.jpg" width="200" height="120" alt="mi foto" border="2">
-    <br>
-    <font face="Times" size="5" color="#FFA500"><b>Emilio<br>Rodriguez<br>Roldan</b></font>
-    <br><br>
-    <button onclick="alert('Salud! (no hace nada)')" style="background:#4169E1; color:#191970; width:180px; height:20px; font-size:16px; overflow:hidden;">BRINDAR CON TODOS LOS AMIGOS</button>
-  </td>
-  <td bgcolor="#F08080" valign="top" style="padding-left:70px;">
-    <!-- buscador: hay que presionar el boton y aun asi no filtra nada -->
-    <font color="white">Buscar cerveceria:</font>
-    <input type="text" id="busqueda" size="5" style="background:black; color:black;">
-    <input type="button" value="BUSCAR" onclick="alert('Buscando: ' + document.getElementById('busqueda').value + '... funcion no implementada')">
-    <br><br>
-    <table border="2" width="80%" bgcolor="#7CFC00">
-      <tr><td><font color="#ADFF2F" size="4"><b>Cerveceria del Norte</b></font><br><font size="1">Monterrey</font></td></tr>
-    </table>
-    <table border="2" width="60%" bgcolor="#87CEEB" style="margin-left:100px;">
-      <tr><td><font color="red" size="2"><i>La Fabrica Oxidada</i></font><br><font size="1">Guadalajara</font></td></tr>
-    </table>
-    <table border="2" width="95%" bgcolor="#DDA0DD">
-      <tr><td><font color="#DDA0DD" size="6">Engranes Brewing</font><br><font size="1">Puebla</font></td></tr>
-    </table>
-    <table border="2" width="40%" bgcolor="orange" align="right">
-      <tr><td><font size="3">Vapor y Cobre</font><br><font size="1">Queretaro</font></td></tr>
-    </table>
-  </td>
-</tr>
-</table>
+<div id="app">
+  <main class="workshop-shell metal-edge mx-auto my-8 w-[min(1120px,calc(100%-2rem))] overflow-hidden border border-zinc-500/70">
+    <header class="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-500/60 bg-black/20 px-5 py-4 sm:px-8">
+      <p class="text-xs uppercase tracking-[.18em] text-amber-100/80">Directorio · Edición 01</p>
+      <p class="flex items-center gap-2 text-xs uppercase tracking-widest text-emerald-200">
+        <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399]"></span>
+        Sistema activo
+      </p>
+    </header>
 
-<script>
-var cervecerias = ["Cerveceria del Norte", "La Fabrica Oxidada", "Engranes Brewing", "Vapor y Cobre"]
-var resultado = []
-</script>
+    <section class="px-5 pb-8 pt-9 sm:px-8 sm:pb-10 sm:pt-12">
+      <div class="mb-8 grid gap-6 border-b border-zinc-500/50 pb-8 md:grid-cols-[1fr_auto] md:items-end">
+        <div>
+          <p class="mb-3 text-xs uppercase tracking-[.22em] text-[color:var(--copper)]">Archivo de establecimientos</p>
+          <h1 class="max-w-3xl text-3xl font-bold leading-tight text-amber-50 sm:text-5xl">Cervecerías del mundo</h1>
+          <p class="mt-3 max-w-2xl text-sm leading-6 text-zinc-300">Un registro de talleres cerveceros, clasificados por lugar y tipo.</p>
+        </div>
+        <div class="border-l-2 border-[color:var(--copper)] pl-4 text-xs uppercase leading-6 tracking-wider text-zinc-300">
+          <p>Registro consultado</p>
+          <p class="text-[color:var(--brass)]">Open Brewery DB</p>
+        </div>
+      </div>
+
+      <div class="mb-7 border border-zinc-500/70 bg-black/20 p-4 sm:p-5">
+        <label for="busqueda-cervecerias" class="mb-2 block text-xs uppercase tracking-[.16em] text-amber-100">Buscar en el registro</label>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <input
+            id="busqueda-cervecerias"
+            v-model="busqueda"
+            type="search"
+            placeholder="Nombre, tipo, ciudad o país..."
+            autocomplete="off"
+            class="min-w-0 flex-1 border border-zinc-500 bg-zinc-900 px-4 py-3 text-sm text-amber-50 outline-none placeholder:text-zinc-500 focus:border-[color:var(--brass)] focus:ring-1 focus:ring-[color:var(--brass)]"
+          >
+          <button
+            v-if="busqueda"
+            type="button"
+            @click="busqueda = ''"
+            class="border border-[color:var(--copper)] px-4 py-3 text-xs uppercase tracking-widest text-amber-100 hover:bg-[color:var(--copper)]/20"
+            aria-label="Limpiar búsqueda"
+          >Limpiar</button>
+        </div>
+        <p class="mt-3 text-xs text-zinc-400" aria-live="polite">
+          <span v-if="cargando">Consultando el registro...</span>
+          <span v-else>{{ cerveceriasFiltradas.length }} de {{ cervecerias.length }} establecimientos</span>
+        </p>
+      </div>
+
+      <div v-if="cargando" class="border border-zinc-600 bg-black/15 px-5 py-10 text-center text-sm text-zinc-300">
+        Preparando el registro de cervecerías...
+      </div>
+      <div v-else-if="cerveceriasFiltradas.length" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <article
+          v-for="(cerveceria, indice) in cerveceriasFiltradas"
+          :key="cerveceria.id"
+          class="brewery-card border border-zinc-600 bg-zinc-800/80 p-5"
+        >
+          <div class="mb-5 flex items-start justify-between gap-3 border-b border-zinc-600/80 pb-4">
+            <span class="text-xs tracking-widest text-[color:var(--copper)]">FICHA {{ String(indice + 1).padStart(2, '0') }}</span>
+            <span class="border border-amber-700/70 px-2 py-1 text-[10px] uppercase tracking-wider text-amber-200">{{ cerveceria.tipo || 'Sin tipo' }}</span>
+          </div>
+          <h2 class="break-words text-lg font-bold leading-snug text-amber-50">{{ cerveceria.nombre }}</h2>
+          <p class="mt-3 min-h-10 text-sm leading-5 text-zinc-300">
+            <span v-if="cerveceria.ciudad">{{ cerveceria.ciudad }}</span><span v-if="cerveceria.ciudad && cerveceria.estado">, </span><span v-if="cerveceria.estado">{{ cerveceria.estado }}</span>
+            <span v-if="(cerveceria.ciudad || cerveceria.estado) && cerveceria.pais"> · </span><span v-if="cerveceria.pais">{{ cerveceria.pais }}</span>
+            <span v-if="!cerveceria.ciudad && !cerveceria.estado && !cerveceria.pais">Ubicación no disponible</span>
+          </p>
+          <a
+            v-if="cerveceria.sitioWeb"
+            :href="cerveceria.sitioWeb"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-5 inline-block break-all border-b border-[color:var(--copper)] pb-1 text-xs text-amber-200 hover:text-white"
+          >Visitar sitio web</a>
+          <p v-else class="mt-5 text-xs text-zinc-500">Sitio web no registrado</p>
+        </article>
+      </div>
+      <div v-else class="border border-zinc-600 bg-black/15 px-5 py-10 text-center">
+        <p class="text-lg text-amber-100">No hay coincidencias</p>
+        <p class="mt-2 text-sm text-zinc-400">Prueba con otro nombre, tipo o lugar.</p>
+      </div>
+
+      <footer class="mt-8 border-t border-zinc-500/50 pt-4 text-xs leading-5 text-zinc-500">
+        Los datos se cargan desde Open Brewery DB. El sitio web solo aparece cuando hay una dirección disponible.
+      </footer>
+    </section>
+  </main>
+</div>
 <!-- =====================================================================
      CONEXIÓN A LA API · YA ESTÁ LISTA, NO NECESITAS CAMBIARLA
      Cuando hagas tu página nueva, conserva este bloque completo y deja
@@ -214,6 +323,42 @@ var resultado = []
       return CERVECERIAS_DE_EJEMPLO;
     }
   }
+</script>
+<script>
+  const { createApp, ref, computed, onMounted } = Vue;
+
+  createApp({
+    setup() {
+      const cervecerias = ref([]);
+      const busqueda = ref('');
+      const cargando = ref(true);
+
+      const cerveceriasFiltradas = computed(() => {
+        const texto = busqueda.value.trim().toLocaleLowerCase();
+
+        if (!texto) return cervecerias.value;
+
+        return cervecerias.value.filter((cerveceria) => {
+          const ficha = [
+            cerveceria.nombre,
+            cerveceria.tipo,
+            cerveceria.ciudad,
+            cerveceria.estado,
+            cerveceria.pais,
+          ].join(' ').toLocaleLowerCase();
+
+          return ficha.includes(texto);
+        });
+      });
+
+      onMounted(async () => {
+        cervecerias.value = await obtenerCervecerias();
+        cargando.value = false;
+      });
+
+      return { cervecerias, busqueda, cargando, cerveceriasFiltradas };
+    },
+  }).mount('#app');
 </script>
 </body>
 </html>
