@@ -214,10 +214,7 @@ Dame el código completo y explícame cada parte con palabras sencillas, como si
 </div>
 
 
-<script>
-var limite = 6
-var limite2 = limite + 0
-</script>
+
 <!-- =====================================================================
      CONEXIÓN A LA API · YA ESTÁ LISTA, NO NECESITAS CAMBIARLA
      Cuando hagas tu página nueva, conserva este bloque completo y deja
@@ -258,5 +255,23 @@ var limite2 = limite + 0
     }
   }
 </script>
+
+<script>
+const { createApp, ref, onMounted } = Vue;
+
+createApp({
+  setup() {
+    const obras = ref([]);
+    const limite = ref(2);
+
+    onMounted(async () => {
+      obras.value = await obtenerObrasDeArte();
+    });
+
+    return { obras, limite };
+  }
+}).mount('#app');
+</script>
+
 </body>
 </html>
