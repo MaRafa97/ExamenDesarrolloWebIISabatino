@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>paises - hector m</title>
+</head>
+<body bgcolor="#FF0000" text="#00FF00" style="margin:0px; font-family:Garamond;">
+
+<!-- ============================================================== -->
+<!-- PANEL DE INSTRUCCIONES DE EXAMEN - NO BORRAR NI MODIFICAR      -->
+<!-- Todo lo que esta DEBAJO de este panel es lo que debes refactorizar -->
+<!-- ============================================================== -->
+<div id="panel-instrucciones" style="max-width:900px; margin:20px auto; background:#ffffff; color:#1a1a1a; border:4px solid #1a1a1a; padding:24px 32px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.55; text-align:left;">
+  <p style="margin:0; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#555;">Desarrollo Web II - Sabatino | Examen Escape Room</p>
+  <h1 style="margin:6px 0 18px 0; font-size:26px;">Panel de Instrucciones de Examen</h1>
+  <p style="margin:0 0 4px 0;"><strong>Alumno:</strong> Hector Dael Marquez Rodriguez</p>
+  <p style="margin:0 0 18px 0;"><strong>Archivo:</strong> hector_m.html</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tu reto</h2>
+  <p style="margin:0;">Debajo de este panel hay un dashboard construido con muy malas prácticas: tablas para maquetar, etiquetas obsoletas, estilos en línea y JavaScript antiguo. Refactorízalo por completo usando la IA como asistente y cumple los tres requisitos siguientes.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">1. API a consumir</h2>
+  <p style="margin:0;"><strong>RestCountries API</strong><br>Endpoint sugerido: <code style="background:#eeeeee; padding:2px 6px;">https://restcountries.com/v3.1/all?fields=name,flags,capital,population</code><br><span style="font-size:14px; color:#555;">Nota: el parámetro fields es obligatorio en el endpoint /all.</span></p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">2. Temática visual a exigir a la IA</h2>
+  <p style="margin:0;"><strong>Material Design Clásico:</strong> colores sólidos índigo y ámbar, sombras de elevación.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">3. Misión interactiva: Deslizador de Tarjetas (Slider)</h2>
+  <p style="margin:0 0 6px 0;"><strong>Visual:</strong> bloque con flechas a la izquierda y a la derecha.</p>
+  <p style="margin:0;"><strong>Lógica exclusiva:</strong> se ve un elemento a la vez. Debe ser cíclico: al pasar el último, vuelve al primero.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tip de prompting</h2>
+  <p style="margin:0; background:#f2f2f2; border-left:5px solid #1a1a1a; padding:10px 14px; font-style:italic;">"En Vue 3, necesito una variable numérica como índice. Los botones suman o restan 1. Asegúrate de incluir la lógica matemática para que vuelva a cero si llega al final."</p>
+</div>
+<!-- ===================== FIN DEL PANEL ===================== -->
+
+
+<table border="0" width="100%">
+<tr>
+<td align="left">
+  <table border="3" bordercolor="yellow" bgcolor="#008000" width="520" cellpadding="10" style="margin-left:200px;">
+  <tr>
+    <td colspan="3" bgcolor="#FFC0CB">
+      <img src="hector.gif" width="90" height="90" alt="sin foto" align="right">
+      <font size="5" color="#0000FF"><b><i>Hector Dael Marquez Rodriguez</i></b></font><br>
+      <font size="2" color="#FFC0CB">viajero frecuente de Google Maps</font>
+    </td>
+  </tr>
+  <tr>
+    <!-- slider: al llegar al final muestra "undefined" y si regresas antes del primero tambien -->
+    <td width="40" bgcolor="black" align="center"><input type="button" value="&lt;" onclick="indice = indice - 1; document.getElementById('pais').innerHTML = paises[indice]" style="font-size:30px; background:black; color:#111111;"></td>
+    <td bgcolor="#FFFF00" align="center" height="120">
+      <font size="7" color="#FFA500"><b id="pais">Mexico</b></font>
+    </td>
+    <td width="40" bgcolor="white" align="center"><input type="button" value="&gt;" onclick="indice = indice + 1; document.getElementById('pais').innerHTML = paises[indice]" style="font-size:10px;"></td>
+  </tr>
+  <tr>
+    <td colspan="3" bgcolor="#4B0082" align="center">
+      <font color="#4B0082">Poblacion: 126,000,000 (dato viejo)</font>
+      <br>
+      <button onclick="alert('Boletos agotados')" style="background:#00FF00; color:#FFFFFF; font-size:20px; border:4px dashed #FF0000; position:relative; left:150px;">RESERVAR VIAJE</button>
+    </td>
+  </tr>
+  </table>
+</td>
+</tr>
+</table>
+
+<script>
+var paises = ["Mexico", "Japon", "Brasil", "Canada"]
+var indice = 0
+</script>
+</body>
+</html>

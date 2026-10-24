@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>perfil nayeli FINAL final v3 (ahora si)</title>
+</head>
+<body bgcolor="#7FFF00" style="margin:0px;">
+
+<!-- ============================================================== -->
+<!-- PANEL DE INSTRUCCIONES DE EXAMEN - NO BORRAR NI MODIFICAR      -->
+<!-- Todo lo que esta DEBAJO de este panel es lo que debes refactorizar -->
+<!-- ============================================================== -->
+<div id="panel-instrucciones" style="max-width:900px; margin:20px auto; background:#ffffff; color:#1a1a1a; border:4px solid #1a1a1a; padding:24px 32px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.55; text-align:left;">
+  <p style="margin:0; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#555;">Desarrollo Web II - Sabatino | Examen Escape Room</p>
+  <h1 style="margin:6px 0 18px 0; font-size:26px;">Panel de Instrucciones de Examen</h1>
+  <p style="margin:0 0 4px 0;"><strong>Alumna:</strong> Nayeli Belen Bautista Maldonado</p>
+  <p style="margin:0 0 18px 0;"><strong>Archivo:</strong> nayeli.html</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tu reto</h2>
+  <p style="margin:0;">Debajo de este panel hay una tarjeta de perfil construida con muy malas prácticas: tablas para maquetar, etiquetas obsoletas, estilos en línea y JavaScript antiguo. Refactorízala por completo usando la IA como asistente y cumple los tres requisitos siguientes.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">1. API a consumir</h2>
+  <p style="margin:0;"><strong>Studio Ghibli API</strong><br>Endpoint sugerido: <code style="background:#eeeeee; padding:2px 6px;">https://ghibliapi.vercel.app/films</code></p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">2. Temática visual a exigir a la IA</h2>
+  <p style="margin:0;"><strong>Kawaii / Pastel:</strong> colores suaves rosas y mentas, bordes muy redondeados, sombras difuminadas.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">3. Misión interactiva: Acordeón de FAQs</h2>
+  <p style="margin:0 0 6px 0;"><strong>Visual:</strong> lista de rectángulos apilados verticalmente con el texto colapsado.</p>
+  <p style="margin:0;"><strong>Lógica exclusiva:</strong> al hacer clic en el Título 1, se expande. Nunca puede haber dos cajones abiertos: si abres el 2, el 1 se cierra solo.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tip de prompting</h2>
+  <p style="margin:0; background:#f2f2f2; border-left:5px solid #1a1a1a; padding:10px 14px; font-style:italic;">"En Vue 3, tengo una lista de 3 tarjetas. Necesito una variable reactiva que guarde el ID de la tarjeta activa. Al hacer clic, actualiza la variable y usa v-if para mostrar solo el contenido que coincida."</p>
+</div>
+<!-- ===================== FIN DEL PANEL ===================== -->
+
+
+<center>
+<table width="700" border="3" cellpadding="0" cellspacing="6" bgcolor="#FF00FF" style="border-color:orange;">
+<tr>
+  <td width="200" bgcolor="yellow" valign="top">
+    <img src="img/foto_nayeli_NUEVA.jpgg" width="180" height="180" alt="foto"><br>
+    <font face="Comic Sans MS" size="2" color="blue">foto de perfil (no carga, ya se)</font>
+  </td>
+  <td valign="bottom" bgcolor="#00FFFF">
+    <font size="7" color="red" face="Impact"><b><i>Nayeli Belen Bautista Maldonado</i></b></font><br>
+    <font size="1" color="#FFFF00">Alumna de Desarrollo Web II</font>
+    <br><br><br>
+    <marquee bgcolor="black" scrollamount="15"><font color="lime">Bienvenidos a mi perfil de peliculas de Studio Ghibli!!!!!!</font></marquee>
+  </td>
+</tr>
+<tr>
+  <td colspan="2" bgcolor="white">
+    <font color="gray" size="5"><u>Mis peliculas favoritas</u></font>
+    <font size="1" color="silver">(escritas a mano, no vienen de ninguna API)</font>
+    <table border="1" width="100%" cellspacing="0">
+      <tr><td bgcolor="red"><font color="yellow">El viaje de Chihiro</font></td><td bgcolor="blue"><font color="red">2001</font></td></tr>
+      <tr><td bgcolor="green"><font color="pink">Mi vecino Totoro</font></td><td bgcolor="black"><font color="#333333">1988</font></td></tr>
+      <tr><td bgcolor="purple"><font color="orange">El castillo ambulante</font></td><td bgcolor="#FFFF99"><font color="white">2004</font></td></tr>
+    </table>
+  </td>
+</tr>
+<tr>
+  <td colspan="2" bgcolor="#8B4513">
+    <font color="white" size="4"><b>Preguntas Frecuentes</b></font><br>
+    <!-- se abren pero NUNCA se cierran, y se pueden abrir todas al mismo tiempo -->
+    <div onclick="document.getElementById('r1').style.display='block'" style="background:orange; padding:3px; margin-top:2px; cursor:pointer; width:90%;"><font color="purple">Pregunta 1: cual es tu personaje favorito?</font></div>
+    <div id="r1" style="display:none; background:pink; float:right; width:60%;">Totoro obvio</div>
+    <div onclick="document.getElementById('r2').style.display='block'" style="background:red; padding:9px; margin-top:12px; cursor:pointer; width:70%;"><font color="lime">Pregunta 2: cual pelicula viste primero?</font></div>
+    <div id="r2" style="display:none; background:cyan;">Ponyo, en la tele</div>
+    <div onclick="document.getElementById('r3').style.display='block'" style="background:navy; padding:1px; margin-top:0px; cursor:pointer;"><font color="black">Pregunta 3: por que te gusta Ghibli?</font></div>
+    <div id="r3" style="display:none; background:yellow; text-align:right;">Por los dibujos y la comida</div>
+    <br clear="all">
+  </td>
+</tr>
+<tr>
+  <td colspan="2" align="right">
+    <button onclick="alert('Gracias por seguirme!!!')" style="float:left; background:lime; font-size:22px; border:5px dotted red; font-family:Courier;">SEGUIR</button>
+    <font size="1">seguidores: <span id="cnt">0</span></font>
+  </td>
+</tr>
+</table>
+</center>
+
+<script>
+var contador = 0
+function sumar(){ contador = contador + 1; document.getElementById('cnt').innerHTML = contador }
+</script>
+</body>
+</html>

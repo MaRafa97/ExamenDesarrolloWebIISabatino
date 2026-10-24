@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>hector dungeons</title>
+</head>
+<body bgcolor="#FFFF66" style="margin:0px;">
+
+<!-- ============================================================== -->
+<!-- PANEL DE INSTRUCCIONES DE EXAMEN - NO BORRAR NI MODIFICAR      -->
+<!-- Todo lo que esta DEBAJO de este panel es lo que debes refactorizar -->
+<!-- ============================================================== -->
+<div id="panel-instrucciones" style="max-width:900px; margin:20px auto; background:#ffffff; color:#1a1a1a; border:4px solid #1a1a1a; padding:24px 32px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.55; text-align:left;">
+  <p style="margin:0; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#555;">Desarrollo Web II - Sabatino | Examen Escape Room</p>
+  <h1 style="margin:6px 0 18px 0; font-size:26px;">Panel de Instrucciones de Examen</h1>
+  <p style="margin:0 0 4px 0;"><strong>Alumno:</strong> Hector Rodriguez Rivera</p>
+  <p style="margin:0 0 18px 0;"><strong>Archivo:</strong> hector_r.html</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tu reto</h2>
+  <p style="margin:0;">Debajo de este panel hay una tarjeta de perfil construida con muy malas prácticas: tablas para maquetar, etiquetas obsoletas, estilos en línea y JavaScript antiguo. Refactorízala por completo usando la IA como asistente y cumple los tres requisitos siguientes.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">1. API a consumir</h2>
+  <p style="margin:0;"><strong>D&amp;D 5e API</strong><br>Endpoint sugerido: <code style="background:#eeeeee; padding:2px 6px;">https://www.dnd5eapi.co/api/2014/monsters</code></p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">2. Temática visual a exigir a la IA</h2>
+  <p style="margin:0;"><strong>Vampírico / Gótico:</strong> carmesí oscuro, negro, tipografía con serifas afiladas.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">3. Misión interactiva: Tooltips Contextuales</h2>
+  <p style="margin:0 0 6px 0;"><strong>Visual:</strong> globo de texto pequeño que flota al pasar el mouse.</p>
+  <p style="margin:0;"><strong>Lógica exclusiva:</strong> al pasar el ratón aparece el globo. Al salir, desaparece inmediatamente.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tip de prompting</h2>
+  <p style="margin:0; background:#f2f2f2; border-left:5px solid #1a1a1a; padding:10px 14px; font-style:italic;">"En Vue 3, necesito controlar la visibilidad de un div flotante usando variables reactivas con los eventos nativos de Vue @mouseenter y @mouseleave."</p>
+</div>
+<!-- ===================== FIN DEL PANEL ===================== -->
+
+
+<table width="750" border="1" cellspacing="0" cellpadding="5" style="margin-left:60px;">
+<tr>
+  <td colspan="2" bgcolor="#00BFFF" align="right">
+    <font face="Comic Sans MS" size="6" color="#FFFF00"><b>Bestiario de Hector</b></font>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="#FF7F50" width="35%" align="center" valign="top">
+    <img src="https://placeholder.invalid/hector.png" width="170" height="210" alt="Hector" style="border:3px double blue;">
+    <br>
+    <font size="4" color="#00FF00"><b>Hector Rodriguez Rivera</b></font><br>
+    <font size="2" color="#FF7F50">Dungeon Master nivel 1</font>
+  </td>
+  <td bgcolor="#E0FFFF" valign="top">
+    <font size="5" color="#8A2BE2"><u>Monstruos conocidos</u></font><br>
+    <font size="1" color="gray">(pasa el mouse para ver la descripcion)</font>
+    <!-- el globo aparece pero NUNCA se quita al salir; todos usan el mismo div -->
+    <p onmouseover="document.getElementById('globo').style.display='block'; document.getElementById('globo').innerHTML='Dragon rojo: escupe fuego'" style="background:#FFDEAD; width:150px;"><font color="red">Dragon Rojo</font></p>
+    <p onmouseover="document.getElementById('globo').style.display='block'; document.getElementById('globo').innerHTML='Beholder: tiene muchos ojos'" style="background:#7B68EE; width:220px; margin-left:50px;"><font color="#9370DB">Beholder</font></p>
+    <p title="Vampiro: no le gusta el sol" style="background:#32CD32; width:100px;"><font color="black" size="4">Vampiro</font></p>
+    <p onmouseover="document.getElementById('globo').style.display='block'" style="background:#FF00FF; width:300px;"><font color="white">Liche</font></p>
+    <div id="globo" style="display:none; position:absolute; top:900px; left:20px; background:lime; border:4px solid red; padding:10px; font-size:20px;">...</div>
+  </td>
+</tr>
+<tr>
+  <td colspan="2" bgcolor="#FFE4E1">
+    <center><button onclick="alert('Sacaste un 1. Fallaste.')" style="background:#B22222; color:#CD5C5C; font-size:24px; border-radius:0px; padding:2px 60px;">TIRAR DADO D20</button></center>
+  </td>
+</tr>
+</table>
+
+<script>
+var mostrandoGlobo = false
+var monstruos = "dragon,beholder,vampiro,liche"
+</script>
+</body>
+</html>

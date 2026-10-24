@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CESAR SPACEX DASHBOARD</title>
+</head>
+<body bgcolor="#F5F5DC" style="margin-top:0px; font-family:'Comic Sans MS';">
+
+<!-- ============================================================== -->
+<!-- PANEL DE INSTRUCCIONES DE EXAMEN - NO BORRAR NI MODIFICAR      -->
+<!-- Todo lo que esta DEBAJO de este panel es lo que debes refactorizar -->
+<!-- ============================================================== -->
+<div id="panel-instrucciones" style="max-width:900px; margin:20px auto; background:#ffffff; color:#1a1a1a; border:4px solid #1a1a1a; padding:24px 32px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.55; text-align:left;">
+  <p style="margin:0; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#555;">Desarrollo Web II - Sabatino | Examen Escape Room</p>
+  <h1 style="margin:6px 0 18px 0; font-size:26px;">Panel de Instrucciones de Examen</h1>
+  <p style="margin:0 0 4px 0;"><strong>Alumno:</strong> Cesar Said Luna Arellano</p>
+  <p style="margin:0 0 18px 0;"><strong>Archivo:</strong> cesar.html</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tu reto</h2>
+  <p style="margin:0;">Debajo de este panel hay un dashboard construido con muy malas prácticas: tablas para maquetar, etiquetas obsoletas, estilos en línea y JavaScript antiguo. Refactorízalo por completo usando la IA como asistente y cumple los tres requisitos siguientes.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">1. API a consumir</h2>
+  <p style="margin:0;"><strong>SpaceX API</strong><br>Endpoint sugerido: <code style="background:#eeeeee; padding:2px 6px;">https://api.spacexdata.com/v4/launches/latest</code></p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">2. Temática visual a exigir a la IA</h2>
+  <p style="margin:0;"><strong>Cyberpunk Neón:</strong> fondo muy oscuro, acentos magenta y cian, bordes rectos.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">3. Misión interactiva: Sistema de Pestañas (Tabs)</h2>
+  <p style="margin:0 0 6px 0;"><strong>Visual:</strong> menú horizontal y un contenedor de contenido debajo.</p>
+  <p style="margin:0;"><strong>Lógica exclusiva:</strong> al hacer clic en otra pestaña, el contenido cambia instantáneamente sin recargar. Solo el contenido seleccionado existe en el DOM.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tip de prompting</h2>
+  <p style="margin:0; background:#f2f2f2; border-left:5px solid #1a1a1a; padding:10px 14px; font-style:italic;">"En Vue 3, necesito una variable reactiva que almacene el nombre de la pestaña actual. Usa v-if para renderizar solo la sección que coincida."</p>
+</div>
+<!-- ===================== FIN DEL PANEL ===================== -->
+
+
+<table border="2" width="85%" align="left" bgcolor="#FFDAB9" cellpadding="8">
+<tr>
+  <td colspan="3" bgcolor="#228B22" align="center"><font size="6" color="#ADFF2F"><b><u>MISIONES ESPACIALES DE CESAR</u></b></font></td>
+</tr>
+<tr>
+  <td width="25%" bgcolor="#D2691E" valign="middle" align="center">
+    <img src="../../imagenes/cesar perfil.bmp" width="100" height="100" alt="cesar"><br>
+    <font color="#FFE4C4" size="4"><i>Cesar Said Luna Arellano</i></font><br>
+    <font size="1" color="brown">astronauta (de corazon)</font>
+  </td>
+  <td colspan="2" bgcolor="#E6E6FA" valign="top">
+    <!-- pestanas: TODO el contenido esta en el DOM y solo se oculta con display none -->
+    <!-- ademas la pestana 3 abre la 1 por error -->
+    <table border="1" cellspacing="0"><tr>
+      <td bgcolor="red" onclick="document.getElementById('t1').style.display='block';document.getElementById('t2').style.display='none';document.getElementById('t3').style.display='none'"><font color="white">Lanzamientos</font></td>
+      <td bgcolor="yellow" onclick="document.getElementById('t2').style.display='block';document.getElementById('t1').style.display='none';document.getElementById('t3').style.display='none'"><font color="#CCCC00">Cohetes</font></td>
+      <td bgcolor="#000000" onclick="document.getElementById('t1').style.display='block';document.getElementById('t2').style.display='none'"><font color="#111111">Tripulacion</font></td>
+    </tr></table>
+    <div id="t1" style="display:block; background:lime; padding:20px; margin-left:30px;"><font face="Courier" color="blue">Ultimo lanzamiento: Falcon 9 - Starlink (dato fijo, no viene de la API)</font></div>
+    <div id="t2" style="display:none; background:orange; padding:2px;"><font color="purple" size="5">Falcon Heavy, Starship, Falcon 1</font></div>
+    <div id="t3" style="display:none; background:pink;"><font size="1">Tripulantes: ????</font></div>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="#808000" colspan="3" align="right">
+    <font size="2" color="#9ACD32">Ultima actualizacion: 12/03/2009</font>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button onclick="alert('Cohete lanzado. No.')" style="background:#FF4500; color:#FF6347; font-weight:bold; position:relative; top:25px; left:40px; padding:15px;">LANZAR COHETE</button>
+  </td>
+</tr>
+</table>
+<br clear="all">
+
+<script>
+var tabActual = 1
+var tabActual2 = 1 // por si acaso
+</script>
+</body>
+</html>

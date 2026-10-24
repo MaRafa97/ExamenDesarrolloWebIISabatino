@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>dashboard clima yareli</title>
+</head>
+<body bgcolor="#FFA500" text="#800080" style="font-family:Papyrus, fantasy; margin:0px;">
+
+<!-- ============================================================== -->
+<!-- PANEL DE INSTRUCCIONES DE EXAMEN - NO BORRAR NI MODIFICAR      -->
+<!-- Todo lo que esta DEBAJO de este panel es lo que debes refactorizar -->
+<!-- ============================================================== -->
+<div id="panel-instrucciones" style="max-width:900px; margin:20px auto; background:#ffffff; color:#1a1a1a; border:4px solid #1a1a1a; padding:24px 32px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.55; text-align:left;">
+  <p style="margin:0; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#555;">Desarrollo Web II - Sabatino | Examen Escape Room</p>
+  <h1 style="margin:6px 0 18px 0; font-size:26px;">Panel de Instrucciones de Examen</h1>
+  <p style="margin:0 0 4px 0;"><strong>Alumna:</strong> Yareli Chavez Cruz</p>
+  <p style="margin:0 0 18px 0;"><strong>Archivo:</strong> yareli.html</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tu reto</h2>
+  <p style="margin:0;">Debajo de este panel hay un dashboard construido con muy malas prácticas: tablas para maquetar, etiquetas obsoletas, estilos en línea y JavaScript antiguo. Refactorízalo por completo usando la IA como asistente y cumple los tres requisitos siguientes.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">1. API a consumir</h2>
+  <p style="margin:0;"><strong>Open-Meteo</strong><br>Endpoint sugerido: <code style="background:#eeeeee; padding:2px 6px;">https://api.open-meteo.com/v1/forecast?latitude=19.43&amp;longitude=-99.13&amp;current=temperature_2m,wind_speed_10m</code></p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">2. Temática visual a exigir a la IA</h2>
+  <p style="margin:0;"><strong>Corporativo Minimalista:</strong> monocromático azul, mucho espacio en blanco, sin sombras.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">3. Misión interactiva: Menú Sidebar</h2>
+  <p style="margin:0 0 6px 0;"><strong>Visual:</strong> panel lateral escondido fuera de la pantalla.</p>
+  <p style="margin:0;"><strong>Lógica exclusiva:</strong> al presionar "Abrir Menú", el panel se desliza al centro. Debe tener un botón de cierre o cerrarse al hacer clic fuera de él.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tip de prompting</h2>
+  <p style="margin:0; background:#f2f2f2; border-left:5px solid #1a1a1a; padding:10px 14px; font-style:italic;">"En Vue 3, necesito una variable booleana que controle la clase CSS de desplazamiento (translate-x) de un contenedor. Un botón alterna el estado para deslizarlo."</p>
+</div>
+<!-- ===================== FIN DEL PANEL ===================== -->
+
+
+<!-- menu lateral: aparece de golpe y no se puede cerrar nunca -->
+<div id="menu" style="position:absolute; left:-600px; top:950px; width:250px; height:400px; background:#FF1493; border:2px dashed yellow;">
+  <font color="white" size="5"><b>MENU</b></font><br>
+  <a href="#" style="color:lime;">Inicio</a><br>
+  <a href="#" style="color:black;">Pronostico</a><br>
+  <a href="#" style="color:#FFFF00; font-size:30px;">Config</a>
+</div>
+
+<table width="100%" border="0" cellpadding="15">
+<tr>
+  <td width="15%" bgcolor="#00FF7F" valign="top">
+    <input type="button" value="Abrir Menu" onclick="document.getElementById('menu').style.left='10px'" style="background:red; color:yellow; height:60px; width:140px;">
+  </td>
+  <td bgcolor="#4B0082" align="center">
+    <table border="5" bordercolor="lime" cellspacing="0" width="500">
+      <tr>
+        <td rowspan="2" bgcolor="silver"><img src="C:\Users\yareli\Desktop\yo.png" width="120" height="150" alt="Imagen de perfil"></td>
+        <td bgcolor="#FFFF00"><font size="6" color="#FF0000" face="Times New Roman"><strike>Yareli</strike> <b>Yareli Chavez Cruz</b></font></td>
+      </tr>
+      <tr>
+        <td bgcolor="#FFC0CB"><font size="2" color="#00FF00"><i>Meteorologa en entrenamiento</i></font></td>
+      </tr>
+    </table>
+    <br><br>
+    <table border="1" width="500" cellpadding="2">
+      <tr bgcolor="#000080"><th><font color="orange">Ciudad</font></th><th><font color="red">Temp</font></th><th><font color="white">Viento</font></th></tr>
+      <tr><td bgcolor="#FFFFFF"><font color="#EEEEEE">CDMX</font></td><td bgcolor="red"><blink>23 C</blink></td><td>12 km/h (inventado)</td></tr>
+      <tr><td bgcolor="aqua">Puebla</td><td bgcolor="black"><font color="black">19 C</font></td><td>???</td></tr>
+    </table>
+    <br>
+    <div style="float:right; margin-right:-40px;">
+      <button onclick="alert('Datos actualizados (mentira)')" style="font-size:9px; background:#8B0000; color:#8B0000; border:3px groove gold;">ACTUALIZAR CLIMA</button>
+    </div>
+  </td>
+</tr>
+</table>
+
+<script>
+var abierto = false
+// TODO: cerrar el menu algun dia
+</script>
+</body>
+</html>

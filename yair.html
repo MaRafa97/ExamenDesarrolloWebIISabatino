@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>yair - actividades para el aburrimiento</title>
+</head>
+<body bgcolor="#000080" text="#FFFF00" style="margin:0px;">
+
+<!-- ============================================================== -->
+<!-- PANEL DE INSTRUCCIONES DE EXAMEN - NO BORRAR NI MODIFICAR      -->
+<!-- Todo lo que esta DEBAJO de este panel es lo que debes refactorizar -->
+<!-- ============================================================== -->
+<div id="panel-instrucciones" style="max-width:900px; margin:20px auto; background:#ffffff; color:#1a1a1a; border:4px solid #1a1a1a; padding:24px 32px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.55; text-align:left;">
+  <p style="margin:0; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#555;">Desarrollo Web II - Sabatino | Examen Escape Room</p>
+  <h1 style="margin:6px 0 18px 0; font-size:26px;">Panel de Instrucciones de Examen</h1>
+  <p style="margin:0 0 4px 0;"><strong>Alumno:</strong> Yair Palafox Cabrera</p>
+  <p style="margin:0 0 18px 0;"><strong>Archivo:</strong> yair.html</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tu reto</h2>
+  <p style="margin:0;">Debajo de este panel hay una tarjeta de perfil construida con muy malas prácticas: tablas para maquetar, etiquetas obsoletas, estilos en línea y JavaScript antiguo. Refactorízala por completo usando la IA como asistente y cumple los tres requisitos siguientes.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">1. API a consumir</h2>
+  <p style="margin:0;"><strong>Bored API</strong><br>Endpoint sugerido: <code style="background:#eeeeee; padding:2px 6px;">https://bored-api.appbrewery.com/random</code><br><span style="font-size:14px; color:#555;">Nota: el dominio original (boredapi.com) ya no existe; usa esta versión espejo con la misma estructura de datos.</span></p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">2. Temática visual a exigir a la IA</h2>
+  <p style="margin:0;"><strong>Orgánico / Naturaleza:</strong> tonos tierra, verdes desaturados, beige, tipografías con serifas.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">3. Misión interactiva: Ventana Modal de Seguridad</h2>
+  <p style="margin:0 0 6px 0;"><strong>Visual:</strong> rectángulo central que bloquea el fondo.</p>
+  <p style="margin:0;"><strong>Lógica exclusiva:</strong> dentro del modal hay un input. El botón Confirmar se activa SOLO si escribes exactamente CONFIRMAR.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tip de prompting</h2>
+  <p style="margin:0; background:#f2f2f2; border-left:5px solid #1a1a1a; padding:10px 14px; font-style:italic;">"En Vue 3, necesito una variable conectada a un input (v-model) que evalúe si la palabra es exactamente CONFIRMAR para remover el atributo disabled de un botón."</p>
+</div>
+<!-- ===================== FIN DEL PANEL ===================== -->
+
+
+<table border="1" bordercolor="#FF0000" width="100%" height="500" cellpadding="0" cellspacing="0">
+<tr>
+  <td width="33%" bgcolor="#FF6600" align="center" valign="bottom">
+    <img src="perfil_yair.jpeg.png" alt="" width="160" height="160" style="border:8px ridge #00FF00;">
+  </td>
+  <td width="33%" bgcolor="#9400D3" align="left" valign="top">
+    <br><br><br><br>
+    <font face="Courier New" size="6" color="#00FF00"><b>YAIR PALAFOX CABRERA</b></font>
+    <p><font color="#FF00FF" size="2">"me aburro mucho, por eso hice esta pagina"</font></p>
+    <font color="silver">Actividad del dia:</font><br>
+    <font size="5" color="red"><i>Aprender a tocar el ukulele (escrito a mano)</i></font>
+  </td>
+  <td width="34%" bgcolor="#2F4F4F" align="right" valign="middle">
+    <font color="#2F4F4F">texto invisible que nadie lee</font><br>
+    <!-- el "modal": un confirm() del navegador y el boton nunca se deshabilita -->
+    <input type="text" id="txtConfirma" value="escribe aqui" style="width:80px; height:40px; font-size:8px;">
+    <br>
+    <input type="button" value="Confirmar" onclick="if(confirm('Seguro?')){alert('Confirmado aunque no escribiste nada')}" style="background:#FFFF00; color:#FFFFFF;">
+    <br><br><br>
+    <button onclick="alert('Nueva actividad: seguir aburrido')" style="background:#00FFFF; border:none; font-size:28px; width:100%; text-align:left;">OTRA ACTIVIDAD</button>
+  </td>
+</tr>
+</table>
+
+<script>
+var palabra = "confirmar" // en minusculas por error
+var x = document.getElementById("txtConfirma")
+</script>
+</body>
+</html>

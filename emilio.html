@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>emilio cervecerias</title>
+</head>
+<body bgcolor="#E0FFFF" style="margin:0px; font-family:Verdana;">
+
+<!-- ============================================================== -->
+<!-- PANEL DE INSTRUCCIONES DE EXAMEN - NO BORRAR NI MODIFICAR      -->
+<!-- Todo lo que esta DEBAJO de este panel es lo que debes refactorizar -->
+<!-- ============================================================== -->
+<div id="panel-instrucciones" style="max-width:900px; margin:20px auto; background:#ffffff; color:#1a1a1a; border:4px solid #1a1a1a; padding:24px 32px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.55; text-align:left;">
+  <p style="margin:0; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#555;">Desarrollo Web II - Sabatino | Examen Escape Room</p>
+  <h1 style="margin:6px 0 18px 0; font-size:26px;">Panel de Instrucciones de Examen</h1>
+  <p style="margin:0 0 4px 0;"><strong>Alumno:</strong> Emilio Rodriguez Roldan</p>
+  <p style="margin:0 0 18px 0;"><strong>Archivo:</strong> emilio.html</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tu reto</h2>
+  <p style="margin:0;">Debajo de este panel hay un dashboard construido con muy malas prácticas: tablas para maquetar, etiquetas obsoletas, estilos en línea y JavaScript antiguo. Refactorízalo por completo usando la IA como asistente y cumple los tres requisitos siguientes.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">1. API a consumir</h2>
+  <p style="margin:0;"><strong>Open Brewery DB</strong><br>Endpoint sugerido: <code style="background:#eeeeee; padding:2px 6px;">https://api.openbrewerydb.org/v1/breweries?per_page=20</code></p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">2. Temática visual a exigir a la IA</h2>
+  <p style="margin:0;"><strong>Steampunk / Industrial:</strong> grises metálicos, cobre, dorado apagado, tipografía tipo máquina de escribir.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">3. Misión interactiva: Buscador Instantáneo</h2>
+  <p style="margin:0 0 6px 0;"><strong>Visual:</strong> barra de búsqueda sobre una lista de tarjetas.</p>
+  <p style="margin:0;"><strong>Lógica exclusiva:</strong> con cada letra escrita, las tarjetas que no coincidan desaparecen, sin necesidad de presionar Enter.</p>
+
+  <h2 style="font-size:19px; margin:18px 0 6px 0; padding-bottom:4px; border-bottom:2px solid #1a1a1a;">Tip de prompting</h2>
+  <p style="margin:0; background:#f2f2f2; border-left:5px solid #1a1a1a; padding:10px 14px; font-style:italic;">"En Vue 3, tengo un arreglo y un input con v-model. Necesito una propiedad computada (computed) que filtre el arreglo original en tiempo real."</p>
+</div>
+<!-- ===================== FIN DEL PANEL ===================== -->
+
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+  <td bgcolor="#FF1493" height="80" colspan="2">
+    <marquee direction="right" behavior="alternate"><font size="6" color="#00FF00" face="Brush Script MT">Cervecerias del Mundo por Emilio</font></marquee>
+  </td>
+</tr>
+<tr>
+  <td width="220" bgcolor="#FFFF00" valign="top" align="center">
+    <br>
+    <img src="file:///D:/fotos/emilio_2015.jpg" width="200" height="120" alt="mi foto" border="2">
+    <br>
+    <font face="Times" size="5" color="#FFA500"><b>Emilio<br>Rodriguez<br>Roldan</b></font>
+    <br><br>
+    <button onclick="alert('Salud! (no hace nada)')" style="background:#4169E1; color:#191970; width:180px; height:20px; font-size:16px; overflow:hidden;">BRINDAR CON TODOS LOS AMIGOS</button>
+  </td>
+  <td bgcolor="#F08080" valign="top" style="padding-left:70px;">
+    <!-- buscador: hay que presionar el boton y aun asi no filtra nada -->
+    <font color="white">Buscar cerveceria:</font>
+    <input type="text" id="busqueda" size="5" style="background:black; color:black;">
+    <input type="button" value="BUSCAR" onclick="alert('Buscando: ' + document.getElementById('busqueda').value + '... funcion no implementada')">
+    <br><br>
+    <table border="2" width="80%" bgcolor="#7CFC00">
+      <tr><td><font color="#ADFF2F" size="4"><b>Cerveceria del Norte</b></font><br><font size="1">Monterrey</font></td></tr>
+    </table>
+    <table border="2" width="60%" bgcolor="#87CEEB" style="margin-left:100px;">
+      <tr><td><font color="red" size="2"><i>La Fabrica Oxidada</i></font><br><font size="1">Guadalajara</font></td></tr>
+    </table>
+    <table border="2" width="95%" bgcolor="#DDA0DD">
+      <tr><td><font color="#DDA0DD" size="6">Engranes Brewing</font><br><font size="1">Puebla</font></td></tr>
+    </table>
+    <table border="2" width="40%" bgcolor="orange" align="right">
+      <tr><td><font size="3">Vapor y Cobre</font><br><font size="1">Queretaro</font></td></tr>
+    </table>
+  </td>
+</tr>
+</table>
+
+<script>
+var cervecerias = ["Cerveceria del Norte", "La Fabrica Oxidada", "Engranes Brewing", "Vapor y Cobre"]
+var resultado = []
+</script>
+</body>
+</html>
