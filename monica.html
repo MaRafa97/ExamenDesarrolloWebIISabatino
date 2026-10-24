@@ -195,7 +195,7 @@ var limite2 = limite + 0
     try {
       const direccion = 'https://api.artic.edu/api/v1/artworks?limit=' + cantidad
         + '&fields=id,title,artist_display,date_display,image_id';
-      const respuesta = await fetch(direccion, { signal: AbortSignal.timeout(10000) });
+      const respuesta = await fetch(direccion, { signal: AbortSignal.timeout(10000), cache: 'no-store' });
       if (!respuesta.ok) throw new Error('La API respondió con el error ' + respuesta.status);
       const datos = await respuesta.json();
       const servidorDeImagenes = datos.config.iiif_url;

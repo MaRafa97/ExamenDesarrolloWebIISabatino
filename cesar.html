@@ -202,7 +202,7 @@ var tabActual2 = 1 // por si acaso
 
   // Pide una sección de la API de SpaceX.
   async function pedirASpaceX(seccion) {
-    const respuesta = await fetch('https://api.spacexdata.com' + seccion, { signal: AbortSignal.timeout(4000) });
+    const respuesta = await fetch('https://api.spacexdata.com' + seccion, { signal: AbortSignal.timeout(4000), cache: 'no-store' });
     if (!respuesta.ok) throw new Error('La API respondió con el error ' + respuesta.status);
     return respuesta.json();
   }

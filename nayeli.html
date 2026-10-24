@@ -204,7 +204,7 @@ function sumar(){ contador = contador + 1; document.getElementById('cnt').innerH
   // Úsala así:  peliculas.value = await obtenerPeliculasGhibli();
   async function obtenerPeliculasGhibli() {
     try {
-      const respuesta = await fetch('https://ghibliapi.vercel.app/films', { signal: AbortSignal.timeout(10000) });
+      const respuesta = await fetch('https://ghibliapi.vercel.app/films', { signal: AbortSignal.timeout(10000), cache: 'no-store' });
       if (!respuesta.ok) throw new Error('La API respondió con el error ' + respuesta.status);
       const peliculas = await respuesta.json();
 
