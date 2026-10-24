@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CESAR SPACEX DASHBOARD</title>
+</head>
+<body bgcolor="#F5F5DC" style="margin-top:0px; font-family:'Comic Sans MS';">
+
+<!-- ============================================================== -->
+<!-- PANEL DE INSTRUCCIONES DE EXAMEN - NO BORRAR NI MODIFICAR      -->
+<!-- Todo lo que esta DEBAJO de este panel es lo que debes rehacer  -->
+<!-- ============================================================== -->
+<div id="panel-instrucciones" style="max-width:860px; margin:24px auto; background:#ffffff; color:#222222; border:3px solid #222222; border-radius:16px; padding:28px 32px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.6; text-align:left;">
+  <p style="margin:0; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#666666;">Desarrollo Web II · Sabatino · Examen Escape Room</p>
+  <h1 style="margin:6px 0 4px 0; font-size:28px; line-height:1.25; font-weight:bold; color:#222222;">Hola, Cesar. Este es tu examen.</h1>
+  <p style="margin:0 0 20px 0; font-size:14px; color:#666666;">Archivo: cesar.html</p>
+
+  <div style="margin:0 0 8px 0; padding:16px 20px; background:#fff4cc; border:2px solid #222222; border-radius:12px;">
+    <p style="margin:0 0 4px 0; font-weight:bold;">Tu misión en una frase</p>
+    <p style="margin:0;">Convierte esta tarjeta fea en un panel futurista estilo Cyberpunk con datos de SpaceX organizados en pestañas.</p>
+  </div>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Antes de empezar</h2>
+  <p style="margin:0 0 10px 0;">Debajo de este panel hay una tarjeta hecha "a la antigua": está fea a propósito y su código está lleno de malas prácticas. Tu trabajo es rehacerla desde cero para que se vea profesional. La IA es tu asistente: pídele ayuda, pero tú decides cómo se ve.</p>
+  <p style="margin:0 0 10px 0;">Vas a usar dos herramientas, sin instalar nada:</p>
+  <ul style="margin:0 0 10px 0; padding-left:22px; list-style:disc;">
+    <li style="margin:0 0 6px 0;"><strong>Tailwind CSS</strong> te deja diseñar escribiendo clases directamente en el HTML, como <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">bg-pink-200</code> (fondo rosa) o <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">rounded-xl</code> (esquinas redondeadas). Es como aplicar estilos en Figma, pero con palabras.</li>
+    <li style="margin:0 0 6px 0;"><strong>Vue</strong> hace que tu página reaccione a lo que hace la persona (clics, escritura, mouse) y se encarga de mostrar los datos que llegan de internet.</li>
+  </ul>
+  <p style="margin:0 0 10px 0;"><strong>Importante:</strong> no borres este panel. Tu página nueva va debajo de él.</p>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Paso 1 · Dale el look: Cyberpunk Neón</h2>
+  <p style="margin:0 0 10px 0;">Como una película de ciencia ficción de noche: fondo casi negro, detalles brillantes en magenta y cian (como letreros de neón) y esquinas rectas, sin redondear.</p>
+  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;">Clases de Tailwind que te pueden servir para empezar: <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">bg-zinc-950</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">text-cyan-400</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">border-fuchsia-500</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">rounded-none</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">uppercase</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">tracking-widest</code></p>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Paso 2 · Muestra datos reales de SpaceX API</h2>
+  <p style="margin:0 0 10px 0;">Buena noticia: <strong>los datos ya llegan solos.</strong> Al final de este archivo hay un bloque llamado <strong>CONEXIÓN A LA API</strong> que trae los últimos lanzamientos, los cohetes y la tripulación de SpaceX. No necesitas entenderlo ni cambiarlo: solo consérvalo en tu página.</p>
+  <p style="margin:0 0 10px 0;">Para pedir los datos se usa <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">await obtenerDatosSpaceX()</code>. Te regresa tres listas esta información:</p>
+  <table style="width:100%; margin:0 0 10px 0; border-collapse:collapse; font-size:15px;">
+    <tr><th style="text-align:left; padding:6px 10px; background:#f2f2f2; border:1px solid #cccccc;">Dato</th><th style="text-align:left; padding:6px 10px; background:#f2f2f2; border:1px solid #cccccc;">Cómo escribirlo en tu diseño</th></tr>
+    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Lista de lanzamientos</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">datos.lanzamientos</code></td></tr>
+    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">En cada lanzamiento</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">lanzamiento.nombre, lanzamiento.fecha, lanzamiento.exitoso, lanzamiento.detalles</code></td></tr>
+    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Lista de cohetes</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">datos.cohetes</code></td></tr>
+    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">En cada cohete</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">cohete.nombre, cohete.descripcion, cohete.alturaMetros, cohete.imagen</code></td></tr>
+    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Lista de tripulantes</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">datos.tripulacion</code></td></tr>
+    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">En cada tripulante</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">persona.nombre, persona.agencia, persona.imagen</code></td></tr>
+  </table>
+  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;">Cada lista es perfecta para una pestaña. Envuelve tu diseño con v-if="datos" porque los datos tardan un instante. Ahora mismo la API de SpaceX está fallando: tras unos segundos verás datos de ejemplo. Es normal, sigue diseñando con ellos.</p>
+  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;">Si la API falla, verás datos de ejemplo y un aviso en la consola del navegador. No es tu culpa: sigue diseñando con ellos.</p>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Paso 3 · Agrega la interacción: Pestañas (tabs)</h2>
+  <p style="margin:0 0 10px 0;"><strong>Cómo se ve:</strong> Una fila de botones arriba (Lanzamientos, Cohetes, Tripulación) y debajo un espacio donde aparece el contenido.</p>
+  <p style="margin:0 0 10px 0;"><strong>Cómo funciona:</strong> Al hacer clic en una pestaña, el contenido cambia al instante, sin recargar la página. Solo existe el contenido de la pestaña elegida: los demás no están escondidos, simplemente no se dibujan.</p>
+  <p style="margin:0 0 10px 0;"><strong>Piénsalo como:</strong> las pestañas de tu navegador o las secciones de un perfil de Instagram (publicaciones, reels, etiquetadas).</p>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Tu punto de partida (copia y pega)</h2>
+  <p style="margin:0 0 10px 0;">Este es el esqueleto mínimo. Borra la tarjeta fea y arma tu página con estas cuatro partes, cada una en el lugar que indica su letra (A, B, C y D). Con eso los datos ya aparecen en pantalla; a partir de ahí, diseña.</p>
+  <pre style="margin:0 0 12px 0; padding:14px 16px; background:#1f1f1f; color:#f5f5f5; border-radius:10px; font-family:Consolas, monospace; font-size:13px; line-height:1.5; overflow-x:auto; white-space:pre;">&lt;!-- A) Dentro de &lt;head&gt;: las dos herramientas --&gt;
+&lt;script src="https://cdn.tailwindcss.com/3.4.17"&gt;&lt;/script&gt;
+&lt;script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"&gt;&lt;/script&gt;
+
+&lt;!-- B) En &lt;body&gt;, debajo de este panel: tu diseño --&gt;
+&lt;div id="app"&gt;
+  &lt;p v-if="datos"&gt;{{ datos.lanzamientos[0].nombre }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- C) Aquí va el bloque "CONEXIÓN A LA API" (ya está al final de este archivo) --&gt;
+
+&lt;!-- D) Al final de todo: tu código de Vue --&gt;
+&lt;script&gt;
+  const { createApp, ref, onMounted } = Vue;
+
+  createApp({
+    setup() {
+      const datos = ref(null);
+
+      onMounted(async () =&gt; {
+        datos.value = await obtenerDatosSpaceX();
+      });
+
+      return { datos };
+    },
+  }).mount('#app');
+&lt;/script&gt;</pre>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Pídele ayuda a la IA</h2>
+  <p style="margin:0 0 10px 0;">Copia y pega este mensaje en tu IA favorita para empezar. Después sigue pidiéndole cambios con tus palabras ("hazlo más redondeado", "cambia el rosa por uno más suave").</p>
+  <div style="margin:0 0 12px 0; padding:14px 16px; background:#f3f0ff; border:2px dashed #6b5bd6; border-radius:10px; font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:1.55; white-space:pre-wrap;">Hola. Soy estudiante de diseño y estoy aprendiendo a programar. Tengo una página HTML que usa Vue 3 y Tailwind CSS cargados desde CDN (no puedo instalar nada).
+
+Ya tengo una función llamada obtenerDatosSpaceX() que me regresa un objeto con tres listas: lanzamientos (nombre, fecha, exitoso, detalles), cohetes (nombre, descripcion, alturaMetros, imagen) y tripulacion (nombre, agencia, imagen).
+
+Ayúdame a crear, dentro de &lt;div id="app"&gt;, un diseño estilo Cyberpunk Neón: como una película de ciencia ficción de noche: fondo casi negro, detalles brillantes en magenta y cian (como letreros de neón) y esquinas rectas, sin redondear.
+
+La página debe tener un sistema de pestañas (Lanzamientos, Cohetes, Tripulación) donde al hacer clic el contenido cambia al instante y solo se dibuja el contenido de la pestaña elegida.
+
+Dame el código completo y explícame cada parte con palabras sencillas, como si yo no supiera programar.</div>
+  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;"><strong>Tip del profe:</strong> "En Vue 3, necesito una variable reactiva que almacene el nombre de la pestaña actual. Usa v-if para renderizar solo la sección que coincida."</p>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">¿Cómo sé que terminé?</h2>
+  <ul style="margin:0 0 10px 0; padding-left:22px; list-style:disc;">
+    <li style="margin:0 0 6px 0;">Borraste la tarjeta fea y en su lugar hay un diseño nuevo hecho con Tailwind: sin tablas para acomodar cosas, sin etiquetas viejas como <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">&lt;font&gt;</code> o <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">&lt;center&gt;</code> y sin <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">style="..."</code> dentro de las etiquetas.</li>
+    <li style="margin:0 0 6px 0;">La página se ve claramente <strong>Cyberpunk Neón</strong>.</li>
+    <li style="margin:0 0 6px 0;">Se muestran lanzamientos, cohetes y tripulantes reales que llegan de la API, no texto inventado.</li>
+    <li style="margin:0 0 6px 0;">Las pestañas cambian el contenido al instante y solo se muestra el de la pestaña elegida.</li>
+    <li style="margin:0 0 6px 0;">Funciona abriendo el archivo con doble clic, sin instalar nada.</li>
+  </ul>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Documentación útil</h2>
+  <ul style="margin:0 0 10px 0; padding-left:22px; list-style:disc;">
+    <li style="margin:0 0 6px 0;"><a href="https://vuejs.org/guide/quick-start.html#using-vue-from-cdn" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Vue: cómo empezar usando el CDN</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/installation/play-cdn" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: cómo usarlo con el CDN</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/customizing-colors" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: paleta de colores</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://vuejs.org/guide/essentials/conditional.html" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Vue: mostrar u ocultar cosas (v-if)</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://vuejs.org/guide/essentials/list.html" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Vue: repetir un elemento por cada dato (v-for)</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://vuejs.org/guide/essentials/event-handling.html" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Vue: reaccionar a clics y al mouse (@click)</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/background-color" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: color de fondo</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/border-width" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: grosor de bordes</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/letter-spacing" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: espacio entre letras</a></li>
+  </ul>
+  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;">La documentación está en inglés: si lo necesitas, usa el botón de traducir de tu navegador. Usa la versión 3 de Tailwind; los enlaces ya te llevan ahí.</p>
+
+  <details style="margin:28px 0 0 0; padding:12px 16px; background:#f7f7f7; border-radius:10px;">
+    <summary style="cursor:pointer; font-weight:bold;">Mini diccionario (por si una palabra te suena rara)</summary>
+    <ul style="margin:0 0 10px 0; padding-left:22px; list-style:disc;">
+    <li style="margin:0 0 6px 0;"><strong>API:</strong> un servicio en internet que te manda datos (películas, clima, fotos) para mostrarlos en tu página.</li>
+    <li style="margin:0 0 6px 0;"><strong>CDN:</strong> una forma de usar una herramienta pegando una sola línea en tu HTML, sin instalar nada.</li>
+    <li style="margin:0 0 6px 0;"><strong>Clase de Tailwind:</strong> una palabra que aplica un estilo. Por ejemplo, <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">p-4</code> agrega relleno y <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">text-center</code> centra el texto.</li>
+    <li style="margin:0 0 6px 0;"><strong>ref:</strong> una cajita donde Vue guarda un dato que puede cambiar. Cuando cambia, la página se actualiza sola.</li>
+    <li style="margin:0 0 6px 0;"><strong>{{ }}:</strong> dentro del HTML, muestra el valor de un dato. Por ejemplo, <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">{{ datos.lanzamientos }}</code>.</li>
+    <li style="margin:0 0 6px 0;"><strong>v-for:</strong> repite un elemento por cada dato de una lista (por ejemplo, una tarjeta por cada elemento).</li>
+    <li style="margin:0 0 6px 0;"><strong>v-if:</strong> muestra un elemento solo si se cumple una condición.</li>
+    <li style="margin:0 0 6px 0;"><strong>@click:</strong> indica qué pasa cuando alguien hace clic. También existen <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">@mouseenter</code> y <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">@mouseleave</code> para el mouse.</li>
+    <li style="margin:0 0 6px 0;"><strong>await:</strong> le dice al código "espera a que lleguen los datos antes de seguir".</li>
+  </ul>
+  </details>
+</div>
+<!-- ===================== FIN DEL PANEL ===================== -->
+
+
+<table border="2" width="85%" align="left" bgcolor="#FFDAB9" cellpadding="8">
+<tr>
+  <td colspan="3" bgcolor="#228B22" align="center"><font size="6" color="#ADFF2F"><b><u>MISIONES ESPACIALES DE CESAR</u></b></font></td>
+</tr>
+<tr>
+  <td width="25%" bgcolor="#D2691E" valign="middle" align="center">
+    <img src="../../imagenes/cesar perfil.bmp" width="100" height="100" alt="cesar"><br>
+    <font color="#FFE4C4" size="4"><i>Cesar Said Luna Arellano</i></font><br>
+    <font size="1" color="brown">astronauta (de corazon)</font>
+  </td>
+  <td colspan="2" bgcolor="#E6E6FA" valign="top">
+    <!-- pestanas: TODO el contenido esta en el DOM y solo se oculta con display none -->
+    <!-- ademas la pestana 3 abre la 1 por error -->
+    <table border="1" cellspacing="0"><tr>
+      <td bgcolor="red" onclick="document.getElementById('t1').style.display='block';document.getElementById('t2').style.display='none';document.getElementById('t3').style.display='none'"><font color="white">Lanzamientos</font></td>
+      <td bgcolor="yellow" onclick="document.getElementById('t2').style.display='block';document.getElementById('t1').style.display='none';document.getElementById('t3').style.display='none'"><font color="#CCCC00">Cohetes</font></td>
+      <td bgcolor="#000000" onclick="document.getElementById('t1').style.display='block';document.getElementById('t2').style.display='none'"><font color="#111111">Tripulacion</font></td>
+    </tr></table>
+    <div id="t1" style="display:block; background:lime; padding:20px; margin-left:30px;"><font face="Courier" color="blue">Ultimo lanzamiento: Falcon 9 - Starlink (dato fijo, no viene de la API)</font></div>
+    <div id="t2" style="display:none; background:orange; padding:2px;"><font color="purple" size="5">Falcon Heavy, Starship, Falcon 1</font></div>
+    <div id="t3" style="display:none; background:pink;"><font size="1">Tripulantes: ????</font></div>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="#808000" colspan="3" align="right">
+    <font size="2" color="#9ACD32">Ultima actualizacion: 12/03/2009</font>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button onclick="alert('Cohete lanzado. No.')" style="background:#FF4500; color:#FF6347; font-weight:bold; position:relative; top:25px; left:40px; padding:15px;">LANZAR COHETE</button>
+  </td>
+</tr>
+</table>
+<br clear="all">
+
+<script>
+var tabActual = 1
+var tabActual2 = 1 // por si acaso
+</script>
+<!-- =====================================================================
+     CONEXIÓN A LA API · YA ESTÁ LISTA, NO NECESITAS CAMBIARLA
+     Cuando hagas tu página nueva, conserva este bloque completo y deja
+     tu código de Vue DEBAJO de él. Te da la función: obtenerDatosSpaceX()
+     ===================================================================== -->
+<script>
+  // Datos de ejemplo: solo se usan si la API no responde, para que puedas seguir trabajando.
+  const SPACEX_DE_EJEMPLO = {
+    lanzamientos: [
+      { id: 'ejemplo-l1', nombre: 'Crew-5', fecha: '2022-10-05', exitoso: true, detalles: 'Quinta misión tripulada de SpaceX a la Estación Espacial Internacional.' },
+      { id: 'ejemplo-l2', nombre: 'Starlink 4-36', fecha: '2022-10-20', exitoso: true, detalles: 'Lote de satélites Starlink en órbita baja.' },
+      { id: 'ejemplo-l3', nombre: 'USSF-44', fecha: '2022-11-01', exitoso: true, detalles: 'Misión de la Fuerza Espacial de Estados Unidos con Falcon Heavy.' },
+    ],
+    cohetes: [
+      { id: 'ejemplo-c1', nombre: 'Falcon 1', descripcion: 'Primer cohete de SpaceX en llegar a órbita.', alturaMetros: 22.25, imagen: '' },
+      { id: 'ejemplo-c2', nombre: 'Falcon 9', descripcion: 'Cohete reutilizable de dos etapas.', alturaMetros: 70, imagen: '' },
+      { id: 'ejemplo-c3', nombre: 'Falcon Heavy', descripcion: 'Tres núcleos de Falcon 9 trabajando juntos.', alturaMetros: 70, imagen: '' },
+      { id: 'ejemplo-c4', nombre: 'Starship', descripcion: 'Nave totalmente reutilizable para viajar a la Luna y a Marte.', alturaMetros: 118, imagen: '' },
+    ],
+    tripulacion: [
+      { id: 'ejemplo-t1', nombre: 'Robert Behnken', agencia: 'NASA', imagen: '' },
+      { id: 'ejemplo-t2', nombre: 'Douglas Hurley', agencia: 'NASA', imagen: '' },
+      { id: 'ejemplo-t3', nombre: 'Shannon Walker', agencia: 'NASA', imagen: '' },
+    ],
+  };
+
+  // Pide una sección de la API de SpaceX.
+  async function pedirASpaceX(seccion) {
+    const respuesta = await fetch('https://api.spacexdata.com' + seccion, { signal: AbortSignal.timeout(4000), cache: 'no-store' });
+    if (!respuesta.ok) throw new Error('La API respondió con el error ' + respuesta.status);
+    return respuesta.json();
+  }
+
+  // Trae los últimos 5 lanzamientos, los cohetes y la tripulación de SpaceX.
+  // Úsala así:  datos.value = await obtenerDatosSpaceX();
+  async function obtenerDatosSpaceX() {
+    try {
+      const [lanzamientos, cohetes, tripulacion] = await Promise.all([
+        pedirASpaceX('/v5/launches/past'),
+        pedirASpaceX('/v4/rockets'),
+        pedirASpaceX('/v4/crew'),
+      ]);
+
+      return {
+        lanzamientos: lanzamientos.slice(-5).reverse().map((lanzamiento) => ({
+          id: lanzamiento.id,
+          nombre: lanzamiento.name,
+          fecha: lanzamiento.date_utc.slice(0, 10),
+          exitoso: lanzamiento.success,
+          detalles: lanzamiento.details || 'Sin detalles.',
+        })),
+        cohetes: cohetes.map((cohete) => ({
+          id: cohete.id,
+          nombre: cohete.name,
+          descripcion: cohete.description,
+          alturaMetros: cohete.height.meters,
+          imagen: cohete.flickr_images[0] || '',
+        })),
+        tripulacion: tripulacion.map((persona) => ({
+          id: persona.id,
+          nombre: persona.name,
+          agencia: persona.agency,
+          imagen: persona.image || '',
+        })),
+      };
+    } catch (error) {
+      console.warn('La API de SpaceX no respondió. Se muestran datos de ejemplo.', error);
+      return SPACEX_DE_EJEMPLO;
+    }
+  }
+</script>
+</body>
+</html>

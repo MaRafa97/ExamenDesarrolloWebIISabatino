@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 420" role="img" aria-labelledby="titulo desc">
+  <title id="titulo">El profe en modo motivación</title>
+  <desc id="desc">Caricatura del profesor con chamarra de cuero bajo una palapa en la playa, flexionando los brazos. En los bíceps se lee v-if y fetch.</desc>
+
+  <defs>
+    <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bfe9ff"/>
+      <stop offset="1" stop-color="#eef9ff"/>
+    </linearGradient>
+    <linearGradient id="cuero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34343c"/>
+      <stop offset="1" stop-color="#15151a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fondo: cielo, sol, mar y arena -->
+  <rect width="400" height="420" fill="url(#cielo)"/>
+  <circle cx="335" cy="95" r="26" fill="#ffd66b"/>
+  <rect y="250" width="400" height="40" fill="#5bbcd6"/>
+  <path d="M0 262 Q50 256 100 262 T200 262 T300 262 T400 262" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.7"/>
+  <rect y="290" width="400" height="130" fill="#f3dca5"/>
+  <rect x="300" y="290" width="100" height="130" fill="#8fd16a"/>
+
+  <!-- Palapa: postes rojos y techo de palma -->
+  <rect x="34" y="40" width="18" height="380" fill="#c0392b"/>
+  <rect x="348" y="30" width="18" height="390" fill="#c0392b"/>
+  <path d="M0 0 H400 V34 L0 64 Z" fill="#7a4f27"/>
+  <g stroke="#a9773f" stroke-width="3" stroke-linecap="round">
+    <path d="M0 64 L10 82 M30 61 L36 80 M60 59 L64 77 M90 56 L98 74 M120 54 L124 70"/>
+    <path d="M280 43 L286 60 M310 41 L318 58 M340 38 L344 56 M370 36 L378 52 M398 34 L400 48"/>
+  </g>
+  <g fill="none" stroke="#3f8f3a" stroke-width="5" stroke-linecap="round">
+    <path d="M400 20 Q350 40 320 110"/>
+    <path d="M400 20 Q370 60 372 130"/>
+    <path d="M390 18 Q330 22 290 70"/>
+  </g>
+
+  <!-- Brazo izquierdo (manga de cuero) -->
+  <g fill="none" stroke="url(#cuero)" stroke-linecap="round">
+    <path d="M140 278 L70 268" stroke-width="44"/>
+    <path d="M66 272 L80 200" stroke-width="40"/>
+  </g>
+  <ellipse cx="102" cy="248" rx="36" ry="27" fill="#24242b"/>
+  <path d="M80 236 Q100 222 122 234" fill="none" stroke="#4a4a55" stroke-width="3" stroke-linecap="round"/>
+  <text x="102" y="254" text-anchor="middle" font-family="Consolas, monospace" font-size="15" font-weight="700" fill="#ffd66b">v-if</text>
+
+  <!-- Brazo derecho (manga de cuero) -->
+  <g fill="none" stroke="url(#cuero)" stroke-linecap="round">
+    <path d="M260 278 L330 268" stroke-width="44"/>
+    <path d="M334 272 L320 200" stroke-width="40"/>
+  </g>
+  <ellipse cx="298" cy="248" rx="36" ry="27" fill="#24242b"/>
+  <path d="M276 234 Q298 222 320 236" fill="none" stroke="#4a4a55" stroke-width="3" stroke-linecap="round"/>
+  <text x="298" y="254" text-anchor="middle" font-family="Consolas, monospace" font-size="14" font-weight="700" fill="#ffd66b">fetch()</text>
+
+  <!-- Pulseras en la muñeca derecha -->
+  <g fill="none" stroke="#6b3e1f" stroke-width="4">
+    <ellipse cx="322" cy="214" rx="21" ry="5"/>
+    <ellipse cx="321" cy="222" rx="21" ry="5" stroke="#3a2414"/>
+  </g>
+
+  <!-- Puños -->
+  <g fill="#f2c9a9" stroke="#d9a688" stroke-width="2">
+    <ellipse cx="80" cy="184" rx="24" ry="21"/>
+    <ellipse cx="320" cy="184" rx="24" ry="21"/>
+  </g>
+  <g fill="none" stroke="#d9a688" stroke-width="2" stroke-linecap="round">
+    <path d="M70 172 V186 M80 170 V186 M90 172 V186"/>
+    <path d="M310 172 V186 M320 170 V186 M330 172 V186"/>
+  </g>
+
+  <!-- Líneas de fuerza -->
+  <g stroke="#ff9f1c" stroke-width="4" stroke-linecap="round">
+    <path d="M44 160 L30 148 M52 148 L46 130 M110 160 L122 146"/>
+    <path d="M356 160 L370 148 M348 148 L354 130 M290 160 L278 146"/>
+  </g>
+
+  <!-- Torso: chamarra, playera de tirantes y cinturón -->
+  <path d="M122 262 Q200 238 278 262 L294 420 H106 Z" fill="url(#cuero)"/>
+  <path d="M172 262 H228 L238 420 H162 Z" fill="#4a4a55"/>
+  <g stroke="#3c3c46" stroke-width="2">
+    <path d="M180 266 V420 M190 266 V420 M200 266 V420 M210 266 V420 M220 266 V420"/>
+  </g>
+  <g fill="none" stroke-width="3">
+    <path d="M172 262 L162 420" stroke="#9a9aa3" stroke-dasharray="3 3"/>
+    <path d="M228 262 L238 420" stroke="#9a9aa3" stroke-dasharray="3 3"/>
+  </g>
+  <path d="M168 250 L184 272 L172 280 Z M232 250 L216 272 L228 280 Z" fill="#2b2b33"/>
+  <circle cx="176" cy="268" r="2.5" fill="#c9c9c9"/>
+  <circle cx="224" cy="268" r="2.5" fill="#c9c9c9"/>
+  <rect x="146" y="394" width="108" height="14" fill="#0e0e11"/>
+  <rect x="188" y="391" width="24" height="20" rx="2" fill="none" stroke="#c9c9c9" stroke-width="3"/>
+
+  <!-- Cuello -->
+  <rect x="182" y="222" width="36" height="40" rx="10" fill="#e9bc9b"/>
+
+  <!-- Cabeza -->
+  <ellipse cx="139" cy="178" rx="10" ry="16" fill="#eec0a0"/>
+  <ellipse cx="261" cy="178" rx="10" ry="16" fill="#eec0a0"/>
+  <ellipse cx="200" cy="168" rx="62" ry="72" fill="#f2c9a9"/>
+  <path d="M146 196 Q154 238 200 242 Q246 238 254 196 Q240 222 200 224 Q160 222 146 196 Z" fill="#c9957a" opacity="0.35"/>
+
+  <!-- Cabello despeinado -->
+  <path d="M138 165 Q128 104 168 90 Q176 66 202 78 Q222 60 240 84 Q274 94 263 165 Q256 128 236 120 Q216 132 196 118 Q172 132 152 126 Q142 142 138 165 Z" fill="#3b2516"/>
+  <path d="M170 92 Q160 70 182 62 Q178 78 190 80 M206 76 Q210 54 232 56 Q220 66 226 80" fill="#3b2516" stroke="#3b2516" stroke-width="6" stroke-linejoin="round"/>
+
+  <!-- Cejas pobladas y serias -->
+  <g fill="none" stroke="#2c1b10" stroke-width="7" stroke-linecap="round">
+    <path d="M160 150 Q175 141 191 149"/>
+    <path d="M209 149 Q225 141 240 150"/>
+  </g>
+
+  <!-- Ojos -->
+  <ellipse cx="176" cy="165" rx="11" ry="8" fill="#ffffff"/>
+  <ellipse cx="224" cy="165" rx="11" ry="8" fill="#ffffff"/>
+  <circle cx="177" cy="166" r="5" fill="#4a2e1a"/>
+  <circle cx="223" cy="166" r="5" fill="#4a2e1a"/>
+  <circle cx="177" cy="166" r="2.2" fill="#120b06"/>
+  <circle cx="223" cy="166" r="2.2" fill="#120b06"/>
+  <g fill="none" stroke="#b8846a" stroke-width="2.5" stroke-linecap="round">
+    <path d="M165 160 Q176 155 187 160"/>
+    <path d="M213 160 Q224 155 235 160"/>
+  </g>
+
+  <!-- Nariz, boca seria y mejillas -->
+  <path d="M200 168 Q193 190 199 196 Q206 198 211 193" fill="none" stroke="#c99474" stroke-width="3" stroke-linecap="round"/>
+  <path d="M187 213 Q200 206 213 213 Q200 220 187 213 Z" fill="#c97a6e"/>
+  <ellipse cx="164" cy="194" rx="10" ry="6" fill="#f2a08a" opacity="0.35"/>
+  <ellipse cx="236" cy="194" rx="10" ry="6" fill="#f2a08a" opacity="0.35"/>
+
+  <!-- Gota de sudor por la chamarra en la playa -->
+  <path d="M252 116 Q260 130 252 136 Q244 130 252 116 Z" fill="#7fd3ff" stroke="#3fa9e0" stroke-width="1.5"/>
+</svg>

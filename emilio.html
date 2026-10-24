@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>emilio cervecerias</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
+<style>
+  :root {
+    color-scheme: dark;
+    --metal: #252a2c;
+    --metal-light: #343b3d;
+    --copper: #b8734f;
+    --brass: #c6a96a;
+    --paper: #e6dfcf;
+  }
+
+  body {
+    margin: 0;
+    background-color: #1b1f20;
+    background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, .025) 0 1px, transparent 1px 7px);
+    color: var(--paper);
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  .workshop-shell {
+    background-color: var(--metal);
+    background-image: linear-gradient(115deg, rgba(255,255,255,.035), transparent 38%), repeating-linear-gradient(0deg, transparent 0 39px, rgba(255,255,255,.025) 40px);
+  }
+
+  .metal-edge {
+    box-shadow: inset 0 1px rgba(255,255,255,.13), inset 0 -1px rgba(0,0,0,.65), 0 18px 50px rgba(0,0,0,.25);
+  }
+
+  .brewery-card {
+    background-image: linear-gradient(135deg, rgba(255,255,255,.045), transparent 55%);
+    transition: border-color .18s ease, transform .18s ease, background-color .18s ease;
+  }
+
+  .brewery-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--brass);
+    background-color: #333a3c;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================== -->
+<!-- PANEL DE INSTRUCCIONES DE EXAMEN - NO BORRAR NI MODIFICAR      -->
+<!-- Todo lo que esta DEBAJO de este panel es lo que debes rehacer  -->
+<!-- ============================================================== -->
+<div id="panel-instrucciones" style="max-width:860px; margin:24px auto; background:#ffffff; color:#222222; border:3px solid #222222; border-radius:16px; padding:28px 32px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.6; text-align:left;">
+  <p style="margin:0; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#666666;">Desarrollo Web II · Sabatino · Examen Escape Room</p>
+  <h1 style="margin:6px 0 4px 0; font-size:28px; line-height:1.25; font-weight:bold; color:#222222;">Hola, Emilio. Este es tu examen.</h1>
+  <p style="margin:0 0 20px 0; font-size:14px; color:#666666;">Archivo: emilio.html</p>
+
+  <div style="margin:0 0 8px 0; padding:16px 20px; background:#fff4cc; border:2px solid #222222; border-radius:12px;">
+    <p style="margin:0 0 4px 0; font-weight:bold;">Tu misión en una frase</p>
+    <p style="margin:0;">Convierte esta tarjeta fea en un directorio de cervecerías con estilo Steampunk y un buscador que filtra mientras escribes.</p>
+  </div>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Antes de empezar</h2>
+  <p style="margin:0 0 10px 0;">Debajo de este panel hay una tarjeta hecha "a la antigua": está fea a propósito y su código está lleno de malas prácticas. Tu trabajo es rehacerla desde cero para que se vea profesional. La IA es tu asistente: pídele ayuda, pero tú decides cómo se ve.</p>
+  <p style="margin:0 0 10px 0;">Vas a usar dos herramientas, sin instalar nada:</p>
+  <ul style="margin:0 0 10px 0; padding-left:22px; list-style:disc;">
+    <li style="margin:0 0 6px 0;"><strong>Tailwind CSS</strong> te deja diseñar escribiendo clases directamente en el HTML, como <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">bg-pink-200</code> (fondo rosa) o <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">rounded-xl</code> (esquinas redondeadas). Es como aplicar estilos en Figma, pero con palabras.</li>
+    <li style="margin:0 0 6px 0;"><strong>Vue</strong> hace que tu página reaccione a lo que hace la persona (clics, escritura, mouse) y se encarga de mostrar los datos que llegan de internet.</li>
+  </ul>
+  <p style="margin:0 0 10px 0;"><strong>Importante:</strong> no borres este panel. Tu página nueva va debajo de él.</p>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Paso 1 · Dale el look: Steampunk / Industrial</h2>
+  <p style="margin:0 0 10px 0;">Como una máquina antigua de vapor: grises metálicos, cobre, dorado apagado y letras tipo máquina de escribir.</p>
+  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;">Clases de Tailwind que te pueden servir para empezar: <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">bg-zinc-700</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">text-amber-200</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">border-amber-700</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">font-mono</code> <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">shadow-inner</code></p>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Paso 2 · Muestra datos reales de Open Brewery DB</h2>
+  <p style="margin:0 0 10px 0;">Buena noticia: <strong>los datos ya llegan solos.</strong> Al final de este archivo hay un bloque llamado <strong>CONEXIÓN A LA API</strong> que trae una lista de cervecerías de todo el mundo. No necesitas entenderlo ni cambiarlo: solo consérvalo en tu página.</p>
+  <p style="margin:0 0 10px 0;">Para pedir los datos se usa <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">await obtenerCervecerias()</code>. Cada cervecería trae esta información:</p>
+  <table style="width:100%; margin:0 0 10px 0; border-collapse:collapse; font-size:15px;">
+    <tr><th style="text-align:left; padding:6px 10px; background:#f2f2f2; border:1px solid #cccccc;">Dato</th><th style="text-align:left; padding:6px 10px; background:#f2f2f2; border:1px solid #cccccc;">Cómo escribirlo en tu diseño</th></tr>
+    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Nombre</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">cerveceria.nombre</code></td></tr>
+    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Tipo</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">cerveceria.tipo</code></td></tr>
+    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Ciudad</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">cerveceria.ciudad</code></td></tr>
+    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Estado o provincia</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">cerveceria.estado</code></td></tr>
+    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">País</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">cerveceria.pais</code></td></tr>
+    <tr><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;">Sitio web (a veces vacío)</td><td style="padding:6px 10px; border:1px solid #cccccc; vertical-align:top;"><code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">cerveceria.sitioWeb</code></td></tr>
+  </table>
+  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;">Llegan 20 cervecerías; puedes pedir más, por ejemplo obtenerCervecerias(50).</p>
+  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;">Si la API falla, verás datos de ejemplo y un aviso en la consola del navegador. No es tu culpa: sigue diseñando con ellos.</p>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Paso 3 · Agrega la interacción: Buscador instantáneo</h2>
+  <p style="margin:0 0 10px 0;"><strong>Cómo se ve:</strong> Una barra de búsqueda encima de la lista de tarjetas.</p>
+  <p style="margin:0 0 10px 0;"><strong>Cómo funciona:</strong> Con cada letra que escribes, las tarjetas que no coinciden desaparecen al momento, sin presionar Enter.</p>
+  <p style="margin:0 0 10px 0;"><strong>Piénsalo como:</strong> buscar un contacto en tu celular: con cada letra la lista se va haciendo más corta.</p>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Tu punto de partida (copia y pega)</h2>
+  <p style="margin:0 0 10px 0;">Este es el esqueleto mínimo. Borra la tarjeta fea y arma tu página con estas cuatro partes, cada una en el lugar que indica su letra (A, B, C y D). Con eso los datos ya aparecen en pantalla; a partir de ahí, diseña.</p>
+  <pre style="margin:0 0 12px 0; padding:14px 16px; background:#1f1f1f; color:#f5f5f5; border-radius:10px; font-family:Consolas, monospace; font-size:13px; line-height:1.5; overflow-x:auto; white-space:pre;">&lt;!-- A) Dentro de &lt;head&gt;: las dos herramientas --&gt;
+<;script src="https://cdn.tailwindcss.com/3.4.17"&gt;&lt;/script&gt;
+&lt;script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"&gt;&lt;/script&gt;
+
+&lt;!-- B) En &lt;body&gt;, debajo de este panel: tu diseño --&gt;
+<div id="app">
+  <div class="bg-zinc-700 text-amber-200 border-4 border-amber-700 shadow-inner p-6">
+    <h1 class="text-3xl font-mono">Cervecerías del mundo</h1>
+
+    <input v-model="busqueda" type="text" placeholder="Buscar cervecería..."
+      class="w-full p-2 mb-4 bg-zinc-800 text-amber-200 border-2 border-amber-700 font-mono">
+
+    <div v-for="cerveceria in cerveceriasFiltradas" :key="cerveceria.id" class="font-mono mb-4">
+      <p>{{ cerveceria.nombre }}</p>
+      <p>{{ cerveceria.tipo }}</p>
+      <p>{{ cerveceria.ciudad }}, {{ cerveceria.estado }}</p>
+      <p>{{ cerveceria.pais }}</p>
+      <a :href="cerveceria.sitioWeb" target="_blank">{{ cerveceria.sitioWeb }}</a>
+    </div>
+  </div>
+</div>
+
+<!-- C) Aquí va el bloque "CONEXIÓN A LA API" (ya está al final de este archivo) -->;
+
+<!-- D) Al final de todo: tu código de Vue -->;
+<;script>;
+  const { createApp, ref, computed, onMounted } = Vue;
+
+  createApp({
+    setup() {
+      const cervecerias = ref([]);
+      const busqueda = ref('');
+
+      const cerveceriasFiltradas = computed(() => {
+        return cervecerias.value.filter(c =>
+
+          c.nombre.toLowerCase().includes(busqueda.value.toLowerCase())
+        );
+      });
+
+      onMounted(async () =>; {
+        cervecerias.value = await obtenerCervecerias();
+      });
+
+      return { cervecerias, busqueda, cerveceriasFiltradas};
+    },
+  }).mount('#app');
+&lt;/script&gt;</pre>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Pídele ayuda a la IA</h2>
+  <p style="margin:0 0 10px 0;">Copia y pega este mensaje en tu IA favorita para empezar. Después sigue pidiéndole cambios con tus palabras ("hazlo más redondeado", "cambia el rosa por uno más suave").</p>
+  <div style="margin:0 0 12px 0; padding:14px 16px; background:#f3f0ff; border:2px dashed #6b5bd6; border-radius:10px; font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:1.55; white-space:pre-wrap;">Hola. Soy estudiante de diseño y estoy aprendiendo a programar. Tengo una página HTML que usa Vue 3 y Tailwind CSS cargados desde CDN (no puedo instalar nada).
+
+Ya tengo una función llamada obtenerCervecerias() que me regresa una lista de cervecerías; cada una tiene nombre, tipo, ciudad, estado, pais y sitioWeb.
+
+Ayúdame a crear, dentro de &lt;div id="app"&gt;, un diseño estilo Steampunk / Industrial: como una máquina antigua de vapor: grises metálicos, cobre, dorado apagado y letras tipo máquina de escribir.
+
+La página debe tener una barra de búsqueda encima de una lista de tarjetas que, con cada letra que se escribe, oculta al momento las tarjetas que no coinciden, sin presionar Enter.
+
+Dame el código completo y explícame cada parte con palabras sencillas, como si yo no supiera programar.</div>
+  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;"><strong>Tip del profe:</strong> "En Vue 3, tengo un arreglo y un input con v-model. Necesito una propiedad computada (computed) que filtre el arreglo original en tiempo real."</p>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">¿Cómo sé que terminé?</h2>
+  <ul style="margin:0 0 10px 0; padding-left:22px; list-style:disc;">
+    <li style="margin:0 0 6px 0;">Borraste la tarjeta fea y en su lugar hay un diseño nuevo hecho con Tailwind: sin tablas para acomodar cosas, sin etiquetas viejas como <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">&lt;font&gt;</code> o <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">&lt;center&gt;</code> y sin <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">style="..."</code> dentro de las etiquetas.</li>
+    <li style="margin:0 0 6px 0;">La página se ve claramente <strong>Steampunk / Industrial</strong>.</li>
+    <li style="margin:0 0 6px 0;">Se muestran cervecerías reales que llegan de la API, no texto inventado.</li>
+    <li style="margin:0 0 6px 0;">La lista se filtra con cada letra, sin presionar Enter.</li>
+    <li style="margin:0 0 6px 0;">Funciona abriendo el archivo con doble clic, sin instalar nada.</li>
+  </ul>
+
+  <h2 style="margin:28px 0 10px 0; padding-bottom:4px; font-size:20px; line-height:1.3; font-weight:bold; color:#222222; border-bottom:2px solid #222222;">Documentación útil</h2>
+  <ul style="margin:0 0 10px 0; padding-left:22px; list-style:disc;">
+    <li style="margin:0 0 6px 0;"><a href="https://vuejs.org/guide/quick-start.html#using-vue-from-cdn" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Vue: cómo empezar usando el CDN</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/installation/play-cdn" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: cómo usarlo con el CDN</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/customizing-colors" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: paleta de colores</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://vuejs.org/guide/essentials/forms.html" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Vue: leer lo que la persona escribe (v-model)</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://vuejs.org/guide/essentials/computed.html" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Vue: datos que se calculan solos (computed)</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://vuejs.org/guide/essentials/list.html" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Vue: repetir un elemento por cada dato (v-for)</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/font-family" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: tipografías</a></li>
+    <li style="margin:0 0 6px 0;"><a href="https://v3.tailwindcss.com/docs/border-width" target="_blank" rel="noopener" style="color:#3b4cca; text-decoration:underline;">Tailwind: grosor de bordes</a></li>
+  </ul>
+  <p style="margin:0 0 10px 0; font-size:14px; color:#555555;">La documentación está en inglés: si lo necesitas, usa el botón de traducir de tu navegador. Usa la versión 3 de Tailwind; los enlaces ya te llevan ahí.</p>
+
+  <details style="margin:28px 0 0 0; padding:12px 16px; background:#f7f7f7; border-radius:10px;">
+    <summary style="cursor:pointer; font-weight:bold;">Mini diccionario (por si una palabra te suena rara)</summary>
+    <ul style="margin:0 0 10px 0; padding-left:22px; list-style:disc;">
+    <li style="margin:0 0 6px 0;"><strong>API:</strong> un servicio en internet que te manda datos (películas, clima, fotos) para mostrarlos en tu página.</li>
+    <li style="margin:0 0 6px 0;"><strong>CDN:</strong> una forma de usar una herramienta pegando una sola línea en tu HTML, sin instalar nada.</li>
+    <li style="margin:0 0 6px 0;"><strong>Clase de Tailwind:</strong> una palabra que aplica un estilo. Por ejemplo, <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">p-4</code> agrega relleno y <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">text-center</code> centra el texto.</li>
+    <li style="margin:0 0 6px 0;"><strong>ref:</strong> una cajita donde Vue guarda un dato que puede cambiar. Cuando cambia, la página se actualiza sola.</li>
+    <li style="margin:0 0 6px 0;"><strong>{{ }}:</strong> dentro del HTML, muestra el valor de un dato. Por ejemplo, <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">{{ cerveceria.nombre }}</code>.</li>
+    <li style="margin:0 0 6px 0;"><strong>v-for:</strong> repite un elemento por cada dato de una lista (por ejemplo, una tarjeta por cada elemento).</li>
+    <li style="margin:0 0 6px 0;"><strong>v-if:</strong> muestra un elemento solo si se cumple una condición.</li>
+    <li style="margin:0 0 6px 0;"><strong>@click:</strong> indica qué pasa cuando alguien hace clic. También existen <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">@mouseenter</code> y <code style="background:#eeeeee; padding:1px 6px; border-radius:4px; font-family:Consolas, monospace; font-size:14px;">@mouseleave</code> para el mouse.</li>
+    <li style="margin:0 0 6px 0;"><strong>await:</strong> le dice al código "espera a que lleguen los datos antes de seguir".</li>
+  </ul>
+  </details>
+</div>
+<!-- ===================== FIN DEL PANEL ===================== -->
+
+
+<div id="app">
+  <main class="workshop-shell metal-edge mx-auto my-8 w-[min(1120px,calc(100%-2rem))] overflow-hidden border border-zinc-500/70">
+    <header class="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-500/60 bg-black/20 px-5 py-4 sm:px-8">
+      <p class="text-xs uppercase tracking-[.18em] text-amber-100/80">Directorio · Edición 01</p>
+      <p class="flex items-center gap-2 text-xs uppercase tracking-widest text-emerald-200">
+        <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399]"></span>
+        Sistema activo
+      </p>
+    </header>
+
+    <section class="px-5 pb-8 pt-9 sm:px-8 sm:pb-10 sm:pt-12">
+      <div class="mb-8 grid gap-6 border-b border-zinc-500/50 pb-8 md:grid-cols-[1fr_auto] md:items-end">
+        <div>
+          <p class="mb-3 text-xs uppercase tracking-[.22em] text-[color:var(--copper)]">Archivo de establecimientos</p>
+          <h1 class="max-w-3xl text-3xl font-bold leading-tight text-amber-50 sm:text-5xl">Cervecerías del mundo</h1>
+          <p class="mt-3 max-w-2xl text-sm leading-6 text-zinc-300">Un registro de talleres cerveceros, clasificados por lugar y tipo.</p>
+        </div>
+        <div class="border-l-2 border-[color:var(--copper)] pl-4 text-xs uppercase leading-6 tracking-wider text-zinc-300">
+          <p>Registro consultado</p>
+          <p class="text-[color:var(--brass)]">Open Brewery DB</p>
+        </div>
+      </div>
+
+      <div class="mb-7 border border-zinc-500/70 bg-black/20 p-4 sm:p-5">
+        <label for="busqueda-cervecerias" class="mb-2 block text-xs uppercase tracking-[.16em] text-amber-100">Buscar en el registro</label>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <input
+            id="busqueda-cervecerias"
+            v-model="busqueda"
+            type="search"
+            placeholder="Nombre, tipo, ciudad o país..."
+            autocomplete="off"
+            class="min-w-0 flex-1 border border-zinc-500 bg-zinc-900 px-4 py-3 text-sm text-amber-50 outline-none placeholder:text-zinc-500 focus:border-[color:var(--brass)] focus:ring-1 focus:ring-[color:var(--brass)]"
+          >
+          <button
+            v-if="busqueda"
+            type="button"
+            @click="busqueda = ''"
+            class="border border-[color:var(--copper)] px-4 py-3 text-xs uppercase tracking-widest text-amber-100 hover:bg-[color:var(--copper)]/20"
+            aria-label="Limpiar búsqueda"
+          >Limpiar</button>
+        </div>
+        <p class="mt-3 text-xs text-zinc-400" aria-live="polite">
+          <span v-if="cargando">Consultando el registro...</span>
+          <span v-else>{{ cerveceriasFiltradas.length }} de {{ cervecerias.length }} establecimientos</span>
+        </p>
+      </div>
+
+      <div v-if="cargando" class="border border-zinc-600 bg-black/15 px-5 py-10 text-center text-sm text-zinc-300">
+        Preparando el registro de cervecerías...
+      </div>
+      <div v-else-if="cerveceriasFiltradas.length" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <article
+          v-for="(cerveceria, indice) in cerveceriasFiltradas"
+          :key="cerveceria.id"
+          class="brewery-card border border-zinc-600 bg-zinc-800/80 p-5"
+        >
+          <div class="mb-5 flex items-start justify-between gap-3 border-b border-zinc-600/80 pb-4">
+            <span class="text-xs tracking-widest text-[color:var(--copper)]">FICHA {{ String(indice + 1).padStart(2, '0') }}</span>
+            <span class="border border-amber-700/70 px-2 py-1 text-[10px] uppercase tracking-wider text-amber-200">{{ cerveceria.tipo || 'Sin tipo' }}</span>
+          </div>
+          <h2 class="break-words text-lg font-bold leading-snug text-amber-50">{{ cerveceria.nombre }}</h2>
+          <p class="mt-3 min-h-10 text-sm leading-5 text-zinc-300">
+            <span v-if="cerveceria.ciudad">{{ cerveceria.ciudad }}</span><span v-if="cerveceria.ciudad && cerveceria.estado">, </span><span v-if="cerveceria.estado">{{ cerveceria.estado }}</span>
+            <span v-if="(cerveceria.ciudad || cerveceria.estado) && cerveceria.pais"> · </span><span v-if="cerveceria.pais">{{ cerveceria.pais }}</span>
+            <span v-if="!cerveceria.ciudad && !cerveceria.estado && !cerveceria.pais">Ubicación no disponible</span>
+          </p>
+          <a
+            v-if="cerveceria.sitioWeb"
+            :href="cerveceria.sitioWeb"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-5 inline-block break-all border-b border-[color:var(--copper)] pb-1 text-xs text-amber-200 hover:text-white"
+          >Visitar sitio web</a>
+          <p v-else class="mt-5 text-xs text-zinc-500">Sitio web no registrado</p>
+        </article>
+      </div>
+      <div v-else class="border border-zinc-600 bg-black/15 px-5 py-10 text-center">
+        <p class="text-lg text-amber-100">No hay coincidencias</p>
+        <p class="mt-2 text-sm text-zinc-400">Prueba con otro nombre, tipo o lugar.</p>
+      </div>
+
+      <footer class="mt-8 border-t border-zinc-500/50 pt-4 text-xs leading-5 text-zinc-500">
+        Los datos se cargan desde Open Brewery DB. El sitio web solo aparece cuando hay una dirección disponible.
+      </footer>
+    </section>
+  </main>
+</div>
+<!-- =====================================================================
+     CONEXIÓN A LA API · YA ESTÁ LISTA, NO NECESITAS CAMBIARLA
+     Cuando hagas tu página nueva, conserva este bloque completo y deja
+     tu código de Vue DEBAJO de él. Te da la función: obtenerCervecerias()
+     ===================================================================== -->
+<script>
+  // Cervecerías de ejemplo: solo se usan si la API no responde, para que puedas seguir trabajando.
+  const CERVECERIAS_DE_EJEMPLO = [
+    { id: 'ejemplo-1', nombre: 'Copper Gear Brewing', tipo: 'micro', ciudad: 'Portland', estado: 'Oregon', pais: 'United States', sitioWeb: '' },
+    { id: 'ejemplo-2', nombre: 'Steam Valve Brewery', tipo: 'brewpub', ciudad: 'Denver', estado: 'Colorado', pais: 'United States', sitioWeb: '' },
+    { id: 'ejemplo-3', nombre: 'Iron Bolt Ales', tipo: 'regional', ciudad: 'Austin', estado: 'Texas', pais: 'United States', sitioWeb: '' },
+    { id: 'ejemplo-4', nombre: 'Rusty Piston Beer Co.', tipo: 'micro', ciudad: 'Seattle', estado: 'Washington', pais: 'United States', sitioWeb: '' },
+  ];
+
+  // Trae una lista de cervecerías de todo el mundo (máximo 200).
+  // Úsala así:  cervecerias.value = await obtenerCervecerias();
+  async function obtenerCervecerias(cantidad = 20) {
+    try {
+      const direccion = 'https://api.openbrewerydb.org/v1/breweries?per_page=' + cantidad;
+      const respuesta = await fetch(direccion, { signal: AbortSignal.timeout(10000), cache: 'no-store' });
+      if (!respuesta.ok) throw new Error('La API respondió con el error ' + respuesta.status);
+      const cervecerias = await respuesta.json();
+
+      return cervecerias.map((cerveceria) => ({
+        id: cerveceria.id,
+        nombre: cerveceria.name,
+        tipo: cerveceria.brewery_type,
+        ciudad: cerveceria.city,
+        estado: cerveceria.state_province || '',
+        pais: cerveceria.country,
+        sitioWeb: cerveceria.website_url || '',
+      }));
+    } catch (error) {
+      console.warn('Open Brewery DB no respondió. Se muestran cervecerías de ejemplo.', error);
+      return CERVECERIAS_DE_EJEMPLO;
+    }
+  }
+</script>
+<script>
+  const { createApp, ref, computed, onMounted } = Vue;
+
+  createApp({
+    setup() {
+      const cervecerias = ref([]);
+      const busqueda = ref('');
+      const cargando = ref(true);
+
+      const cerveceriasFiltradas = computed(() => {
+        const texto = busqueda.value.trim().toLocaleLowerCase();
+
+        if (!texto) return cervecerias.value;
+
+        return cervecerias.value.filter((cerveceria) => {
+          const ficha = [
+            cerveceria.nombre,
+            cerveceria.tipo,
+            cerveceria.ciudad,
+            cerveceria.estado,
+            cerveceria.pais,
+          ].join(' ').toLocaleLowerCase();
+
+          return ficha.includes(texto);
+        });
+      });
+
+      onMounted(async () => {
+        cervecerias.value = await obtenerCervecerias();
+        cargando.value = false;
+      });
+
+      return { cervecerias, busqueda, cargando, cerveceriasFiltradas };
+    },
+  }).mount('#app');
+</script>
+</body>
+</html>

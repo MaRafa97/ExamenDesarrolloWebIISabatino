@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>El Bestiario Carmesí</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+	<script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
+</head>
+<body class="min-w-[320px] bg-[#050505] bg-[radial-gradient(ellipse_at_50%_0%,#000000_0%,#3B0101_38%,#5C0000_78%)] font-[Cormorant_Garamond,Georgia,serif] text-[#330707] [color-scheme:dark]">
+	<div id="app" class="min-h-screen px-5 py-10 sm:px-8 sm:py-14">
+		<main class="mx-auto max-w-6xl">
+			<header class="mb-10 border-b border-red-700 pb-8 text-center sm:mb-12">
+				<p class="mb-3 font-[Cinzel,Georgia,serif] text-xs font-semibold uppercase tracking-[0.28em] text-red-400/80">Archivo de criaturas · Desde 1897</p>
+				<h1 class="font-[Cinzel,Georgia,serif] text-3xl font-semibold text-[#BF0000] sm:text-5xl">El Bestiario Carmesí</h1>
+				<p class="mx-auto mt-4 max-w-xl text-lg text-stone-400 sm:text-xl">Crónicas de las criaturas que acechan más allá de la luz.</p>
+				<div class="mt-6 flex items-center justify-center gap-3 text-sm text-stone-400" aria-live="polite">
+					<span class="h-px w-10 bg-red-700"></span>
+					<span v-if="cargando">Consultando los archivos...</span>
+					<span v-else>{{ monstruos.length }} criaturas registradas</span>
+					<span class="h-px w-10 bg-red-900"></span>
+				</div>
+			</header>
+
+			<p v-if="errorCarga" class="mb-6 border-l-2 border-red-700 bg-red-950/30 px-4 py-3 text-stone-300" role="status">
+				{{ errorCarga }}
+			</p>
+
+			<section aria-label="Lista de monstruos" class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+				<article
+					v-for="monstruo in monstruos"
+					:key="monstruo.id || monstruo.nombre"
+					class="relative z-0 rounded-sm border border-[rgba(164,91,99,0.35)] bg-[linear-gradient(145deg,rgba(44,27,30,0.98),rgba(20,15,17,0.98))] p-3 transition-[border-color,transform,box-shadow] duration-200 ease-in-out hover:z-10 hover:-translate-y-[3px] hover:border-[#a44b56] hover:shadow-[0_14px_38px_rgba(0,0,0,0.4),0_0_22px_rgba(121,29,42,0.18)] focus-visible:z-10 focus-visible:-translate-y-[3px] focus-visible:border-[#a44b56] focus-visible:shadow-[0_14px_38px_rgba(0,0,0,0.4),0_0_22px_rgba(121,29,42,0.18)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#d28b91] motion-reduce:transition-none"
+					:class="{ 'z-10 -translate-y-[3px] border-[#a44b56] shadow-[0_14px_38px_rgba(0,0,0,0.4),0_0_22px_rgba(121,29,42,0.18)]': tooltipActivo === monstruo.id }"
+					tabindex="0"
+					:aria-label="'Información de ' + monstruo.nombre"
+					@mouseenter="tooltipActivo = monstruo.id"
+					@mouseleave="tooltipActivo = null"
+					@focus="tooltipActivo = monstruo.id"
+					@blur="tooltipActivo = null"
+				>
+					<div class="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-black/50">
+						<img
+							v-if="monstruo.imagen"
+							:src="monstruo.imagen"
+							:alt="'Retrato de ' + monstruo.nombre"
+							class="h-full w-full object-cover"
+							loading="lazy"
+						>
+						<div v-else class="flex h-full w-full flex-col items-center justify-center bg-gradient-to-b from-red-950/50 to-black font-[Cinzel,Georgia,serif] text-red-200/70" aria-hidden="true">
+							<span class="text-5xl">✦</span>
+							<span class="mt-2 text-[10px] uppercase tracking-[0.3em]">Sin retrato</span>
+						</div>
+						<span class="absolute left-3 top-3 border border-red-200/20 bg-black/70 px-2 py-1 font-[Cinzel,Georgia,serif] text-[10px] uppercase tracking-widest text-red-200">
+							{{ monstruo.tamano }}
+						</span>
+					</div>
+
+					<div class="px-2 pb-2 pt-4">
+						<h2 class="font-[Cinzel,Georgia,serif] text-lg font-semibold text-red-700">{{ monstruo.nombre }}</h2>
+						<p class="mt-1 text-base capitalize text-stone-200">{{ monstruo.tipo }}</p>
+						<p class="mt-3 text-xs uppercase tracking-[0.18em] text-red-400/75">Pasa el cursor para consultar</p>
+					</div>
+
+					<div
+						v-if="tooltipActivo === monstruo.id"
+						class="absolute bottom-full left-2 right-2 z-20 mb-2 border border-red-800/80 bg-[#180d10] p-4 shadow-2xl shadow-black/70"
+						role="tooltip"
+					>
+						<p class="mb-3 border-b border-red-950 pb-2 font-[Cinzel,Georgia,serif] text-xs uppercase tracking-[0.18em] text-red-700">Registro de criatura</p>
+						<dl class="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
+							<dt class="text-white">Alineamiento</dt><dd class="text-right capitalize text-red-600">{{ monstruo.alineamiento }}</dd>
+							<dt class="text-white">Clase de armadura</dt><dd class="text-right text-red-600">{{ monstruo.claseArmadura }}</dd>
+							<dt class="text-white">Puntos de vida</dt><dd class="text-right text-red-600">{{ monstruo.puntosVida }}</dd>
+							<dt class="text-white">Desafío</dt><dd class="text-right text-red-600">{{ monstruo.desafio }}</dd>
+						</dl>
+					</div>
+				</article>
+			</section>
+
+			<p v-if="!cargando && monstruos.length === 0" class="py-16 text-center text-stone-400">No se encontraron criaturas en los archivos.</p>
+			<footer class="mt-14 border-t border-red-950/80 pt-5 text-center text-sm text-stone-500">
+				Registros recopilados de la API de D&amp;D 5e
+			</footer>
+		</main>
+	</div>
+
+	<script>
+		const MONSTRUOS_DE_EJEMPLO = [
+			{ id: 'aboleth', nombre: 'Aboleth', tipo: 'aberration', tamano: 'Large', alineamiento: 'lawful evil', claseArmadura: 17, puntosVida: 135, desafio: 10, imagen: '' },
+			{ id: 'vampire', nombre: 'Vampire', tipo: 'undead', tamano: 'Medium', alineamiento: 'lawful evil', claseArmadura: 16, puntosVida: 144, desafio: 13, imagen: '' },
+			{ id: 'lich', nombre: 'Lich', tipo: 'undead', tamano: 'Medium', alineamiento: 'any evil alignment', claseArmadura: 17, puntosVida: 135, desafio: 21, imagen: '' },
+			{ id: 'adult-red-dragon', nombre: 'Adult Red Dragon', tipo: 'dragon', tamano: 'Huge', alineamiento: 'chaotic evil', claseArmadura: 19, puntosVida: 256, desafio: 17, imagen: '' },
+		];
+
+		async function pedirADnd(seccion) {
+			const respuesta = await fetch('https://www.dnd5eapi.co' + seccion, {
+				signal: AbortSignal.timeout(10000),
+				cache: 'no-store',
+			});
+			if (!respuesta.ok) throw new Error('La API respondió con el error ' + respuesta.status);
+			return respuesta.json();
+		}
+
+		async function obtenerMonstruos(cantidad = 24) {
+			try {
+				const lista = await pedirADnd('/api/2014/monsters');
+				const primeros = lista.results.slice(0, cantidad);
+				const respuestas = await Promise.allSettled(primeros.map((monstruo) => pedirADnd(monstruo.url)));
+				const fichas = respuestas.filter((respuesta) => respuesta.status === 'fulfilled').map((respuesta) => respuesta.value);
+				if (fichas.length === 0) throw new Error('No llegó ninguna ficha de monstruo');
+
+				return fichas.map((ficha) => ({
+					id: ficha.index,
+					nombre: ficha.name,
+					tipo: ficha.type,
+					tamano: ficha.size,
+					alineamiento: ficha.alignment,
+					claseArmadura: ficha.armor_class[0].value,
+					puntosVida: ficha.hit_points,
+					desafio: ficha.challenge_rating,
+					imagen: ficha.image ? 'https://www.dnd5eapi.co' + ficha.image : '',
+				}));
+			} catch (error) {
+				console.warn('La API de D&D no respondió. Se muestran monstruos de ejemplo.', error);
+				return MONSTRUOS_DE_EJEMPLO;
+			}
+		}
+
+		const { createApp, ref, onMounted } = Vue;
+
+		createApp({
+			setup() {
+				const monstruos = ref([]);
+				const cargando = ref(true);
+				const errorCarga = ref('');
+				const tooltipActivo = ref(null);
+
+				onMounted(async () => {
+					try {
+						monstruos.value = await obtenerMonstruos();
+					} catch (error) {
+						errorCarga.value = 'No fue posible consultar los archivos de monstruos.';
+						console.error(error);
+					} finally {
+						cargando.value = false;
+					}
+				});
+
+				return { monstruos, cargando, errorCarga, tooltipActivo };
+			},
+		}).mount('#app');
+	</script>
+</body>
+</html>
