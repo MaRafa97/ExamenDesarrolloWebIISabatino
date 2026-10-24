@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
+
 <meta charset="UTF-8">
 <title>paises - hector m</title>
 </head>
@@ -137,36 +140,74 @@ Dame el código completo y explícame cada parte con palabras sencillas, como si
 <!-- ===================== FIN DEL PANEL ===================== -->
 
 
-<table border="0" width="100%">
-<tr>
-<td align="left">
-  <table border="3" bordercolor="yellow" bgcolor="#008000" width="520" cellpadding="10" style="margin-left:200px;">
-  <tr>
-    <td colspan="3" bgcolor="#FFC0CB">
-      <img src="hector.gif" width="90" height="90" alt="sin foto" align="right">
-      <font size="5" color="#0000FF"><b><i>Hector Dael Marquez Rodriguez</i></b></font><br>
-      <font size="2" color="#FFC0CB">viajero frecuente de Google Maps</font>
-    </td>
-  </tr>
-  <tr>
-    <!-- slider: al llegar al final muestra "undefined" y si regresas antes del primero tambien -->
-    <td width="40" bgcolor="black" align="center"><input type="button" value="&lt;" onclick="indice = indice - 1; document.getElementById('pais').innerHTML = paises[indice]" style="font-size:30px; background:black; color:#111111;"></td>
-    <td bgcolor="#FFFF00" align="center" height="120">
-      <font size="7" color="#FFA500"><b id="pais">Mexico</b></font>
-    </td>
-    <td width="40" bgcolor="white" align="center"><input type="button" value="&gt;" onclick="indice = indice + 1; document.getElementById('pais').innerHTML = paises[indice]" style="font-size:10px;"></td>
-  </tr>
-  <tr>
-    <td colspan="3" bgcolor="#4B0082" align="center">
-      <font color="#4B0082">Poblacion: 126,000,000 (dato viejo)</font>
-      <br>
-      <button onclick="alert('Boletos agotados')" style="background:#00FF00; color:#FFFFFF; font-size:20px; border:4px dashed #FF0000; position:relative; left:150px;">RESERVAR VIAJE</button>
-    </td>
-  </tr>
-  </table>
-</td>
-</tr>
-</table>
+
+<div id="app" class="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+  <div class="w-full max-w-md overflow-hidden rounded-xl bg-white shadow-lg">
+
+    <div class="bg-indigo-600 p-6 text-center text-white">
+      <img
+        src="hector.gif"
+        alt="Foto de Héctor"
+        class="mx-auto mb-3 h-20 w-20 rounded-full object-cover"
+      />
+      <h1 class="text-2xl font-bold">Hector Dael Marquez Rodriguez</h1>
+      <p class="mt-1 text-sm text-indigo-100">Viajero frecuente de Google Maps</p>
+    </div>
+
+    <div v-if="cargando" class="p-8 text-center text-gray-600">
+      Cargando países...
+    </div>
+
+    <div v-else-if="pais" class="p-6">
+      <img
+        :src="pais.bandera"
+        :alt="'Bandera de ' + pais.nombre"
+        class="mx-auto mb-5 h-36 w-full rounded-lg object-contain"
+      />
+
+      <h2 class="mb-1 text-center text-3xl font-bold text-gray-800">
+        {{ pais.nombre }}
+      </h2>
+
+      <p class="mb-5 text-center text-gray-500">
+        {{ pais.nombreOficial }}
+      </p>
+
+      <div class="space-y-3 text-gray-700">
+        <p><strong>Capital:</strong> {{ pais.capital }}</p>
+        <p><strong>Región:</strong> {{ pais.region }}</p>
+        <p><strong>Superficie:</strong> {{ pais.areaKm2.toLocaleString() }} km²</p>
+        <p><strong>Idiomas:</strong> {{ pais.idiomas.join(", ") }}</p>
+      </div>
+
+      <div class="mt-6 flex items-center justify-between gap-4">
+        <button
+          @click="anterior"
+          class="rounded-lg bg-indigo-600 px-5 py-3 font-semibold text-white hover:bg-indigo-700"
+        >
+          ← Anterior
+        </button>
+
+        <span class="text-sm text-gray-500">
+          {{ indice + 1 }} / {{ paises.length }}
+        </span>
+
+        <button
+          @click="siguiente"
+          class="rounded-lg bg-indigo-600 px-5 py-3 font-semibold text-white hover:bg-indigo-700"
+        >
+          Siguiente →
+        </button>
+      </div>
+    </div>
+
+    <div v-else class="p-6 text-center text-red-600">
+      No se pudieron cargar los países.
+    </div>
+
+  </div>
+</div>
+
 
 <script>
 var paises = ["Mexico", "Japon", "Brasil", "Canada"]
@@ -178,6 +219,7 @@ var indice = 0
      tu código de Vue DEBAJO de él. Te da la función: obtenerPaises()
      ===================================================================== -->
 <script>
+  
   // Países de ejemplo: solo se usan si la API no responde, para que puedas seguir trabajando.
   const PAISES_DE_EJEMPLO = [
     { id: 'MEX', nombre: 'México', nombreOficial: 'Estados Unidos Mexicanos', capital: 'Mexico City', region: 'Americas', areaKm2: 1964375, idiomas: ['Spanish'], bandera: 'https://flagcdn.com/w320/mx.png' },
@@ -217,5 +259,50 @@ var indice = 0
     }
   }
 </script>
+
+<script>
+const { createApp, ref, computed, onMounted } = Vue;
+
+createApp({
+  setup() {
+    const paises = ref([]);
+    const indice = ref(0);
+    const cargando = ref(true);
+
+    const pais = computed(() => paises.value[indice.value]);
+
+    function siguiente() {
+      if (paises.value.length === 0) return;
+      indice.value = (indice.value + 1) % paises.value.length;
+    }
+
+    function anterior() {
+      if (paises.value.length === 0) return;
+      indice.value =
+        (indice.value - 1 + paises.value.length) % paises.value.length;
+    }
+
+    onMounted(async () => {
+      try {
+        paises.value = await obtenerPaises();
+      } catch (error) {
+        console.error("Error al cargar los países:", error);
+      } finally {
+        cargando.value = false;
+      }
+    });
+
+    return {
+      paises,
+      indice,
+      pais,
+      cargando,
+      siguiente,
+      anterior
+    };
+  }
+}).mount("#app");
+</script>
+
 </body>
 </html>
